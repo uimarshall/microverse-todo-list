@@ -14,9 +14,10 @@ export default function addProject(){
    const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
    submitBtn.value = "Add Project"
    submitBtn.onclick = (e) => {
-         e.preventDefault()
+         // e.preventDefault()
    // alert(inputField.value)
-   localStorage.projectList[] = inputField.value
+   localStorage.setItem(`${inputField.value}`, {})
+   // localStorage.projectList[] = inputField.value
          // localStorage[`${inputField.value}`]['title'] = inputField.value
          // alert(inputField.value)
          // alert(inputField2.value)

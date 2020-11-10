@@ -26,34 +26,23 @@ export default function defaultIndex(content) {
 
   content.appendChild(defaultProjectChoice);
 
-  const projectChoice1 = contentCreator.withText('p', 'Project1')
-  projectChoice1.classList.add('projectListItem')
-  projectChoice1.onclick = () => {
+  console.log(localStorage)
 
+  for(let i = 0; i < localStorage.length; i += 1){
+    if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
+    console.log(localStorage.key(i))
+    const projectChoiceTest = contentCreator.withText('p', localStorage.key(i))
+    projectChoiceTest.classList.add('projectListItem')
+    projectChoiceTest.onclick = () => {
+
+    }
+      getToDoTitles(projectChoiceTest)
+
+    content.appendChild(projectChoiceTest);
   }
-    getToDoTitles(projectChoice1)
+}
+    // const projectChoiceTest = contentCreator.withText('p', localStorage.TestProject.title)
 
-  content.appendChild(projectChoice1);
-
-  const projectChoice2 = contentCreator.withText('p', 'Project2')
-  projectChoice2.classList.add('projectListItem')
-  projectChoice2.onclick = () => {
-
-  }
-    getToDoTitles(projectChoice2)
-
-  content.appendChild(projectChoice2);
-
-  // console.log(localStorage.Project1)
-
-  const projectChoiceTest = contentCreator.withText('p', localStorage.Project1)
-  projectChoiceTest.classList.add('projectListItem')
-  projectChoiceTest.onclick = () => {
-
-  }
-    getToDoTitles(projectChoiceTest)
-
-  content.appendChild(projectChoiceTest);
 
     const addNewList = document.createElement('button')
     addNewList.classList.add('addNewList')

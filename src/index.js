@@ -36,4 +36,4 @@ defaultIndex(content)
 // itemPriority.textContent = `${toDo1.priority}`
 // displayItem.appendChild(itemPriority)
 
-body.appendChild(displayItem)
+body.appendChild(content)

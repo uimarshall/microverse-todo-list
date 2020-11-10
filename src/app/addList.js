@@ -33,8 +33,11 @@ export default function addTodos(){
    submitBtn.value = "Add Todos"
    submitBtn.onclick = (e) => {
       e.preventDefault()
-alert(inputField.value)
-localStorage.Project1 = inputField.value
+      alert(inputField.value)
+
+      localStorage.setItem([`Test-Project`].title, inputField2.value)
+      // localStorage.setItem(`${inputField.value}.title`, inputField2.value)
+      // localStorage.Project1 = inputField.value
       // localStorage[`${inputField.value}`]['title'] = inputField.value
       // alert(inputField.value)
       // alert(inputField2.value)
