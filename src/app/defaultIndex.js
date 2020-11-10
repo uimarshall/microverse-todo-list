@@ -31,14 +31,31 @@ export default function defaultIndex(content) {
   for(let i = 0; i < localStorage.length; i += 1){
     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
     console.log(localStorage.key(i))
-    const projectChoiceTest = contentCreator.withText('p', localStorage.key(i))
-    projectChoiceTest.classList.add('projectListItem')
-    projectChoiceTest.onclick = () => {
+    const project = contentCreator.withText('p', localStorage.key(i))
+    project.classList.add('projectListItem')
+    // projectChoiceTest.onclick = () => {
+
+    // }
+      // getToDoTitles(projectChoiceTest)
+
+    content.appendChild(project);
+    const projectsStored = JSON.parse(localStorage[localStorage.key(i)]
+)
+    // alert(projectsStored)
+    project.onclick = ()=>{
+      const list = document.createElement('ul')
+    
+     list.appendChild(contentCreator.withText('li', projectsStored.title)) 
+     list.appendChild(contentCreator.withText('li', projectsStored.description)) 
+     list.appendChild(contentCreator.withText('li', projectsStored.priority)) 
+      
+    
+    project.appendChild(list)
 
     }
-      getToDoTitles(projectChoiceTest)
-
-    content.appendChild(projectChoiceTest);
+    
+    
+    
   }
 }
     // const projectChoiceTest = contentCreator.withText('p', localStorage.TestProject.title)
