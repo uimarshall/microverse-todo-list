@@ -15,31 +15,45 @@ function getToDoTitles(project){
 export default function defaultIndex(content) {
 
   content.appendChild(contentCreator.withText('h2', 'Project List'));
+
   const defaultProjectChoice = contentCreator.withHTML('p', 'Default Project')
   defaultProjectChoice.classList.add('projectListItem')
   defaultProjectChoice.onclick = () => {
-    clearContent(content)
+
   }
 
   getToDoTitles(defaultProjectChoice)
 
   content.appendChild(defaultProjectChoice);
+
   const projectChoice1 = contentCreator.withText('p', 'Project1')
   projectChoice1.classList.add('projectListItem')
   projectChoice1.onclick = () => {
-    clearContent(content)
+
   }
     getToDoTitles(projectChoice1)
 
   content.appendChild(projectChoice1);
+
   const projectChoice2 = contentCreator.withText('p', 'Project2')
   projectChoice2.classList.add('projectListItem')
   projectChoice2.onclick = () => {
-    clearContent(content)
+
   }
     getToDoTitles(projectChoice2)
 
   content.appendChild(projectChoice2);
+
+  // console.log(localStorage.Project1)
+
+  const projectChoiceTest = contentCreator.withText('p', localStorage.Project1)
+  projectChoiceTest.classList.add('projectListItem')
+  projectChoiceTest.onclick = () => {
+
+  }
+    getToDoTitles(projectChoiceTest)
+
+  content.appendChild(projectChoiceTest);
 
     const addNewList = document.createElement('button')
     addNewList.classList.add('addNewList')

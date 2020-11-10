@@ -31,6 +31,17 @@ export default function addTodos(){
    const submitWrapper = contentCreator.withText('div', '', 'form-control')
    const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
    submitBtn.value = "Add Todos"
+   submitBtn.onclick = (e) => {
+      e.preventDefault()
+alert(inputField.value)
+localStorage.Project1 = inputField.value
+      // localStorage[`${inputField.value}`]['title'] = inputField.value
+      // alert(inputField.value)
+      // alert(inputField2.value)
+      // alert(textarea.value)
+      // alert(textBoxField.checked)
+      // alert(selectField.value)
+   }
    submitWrapper.appendChild(submitBtn)
    form.appendChild(submitWrapper)
 
