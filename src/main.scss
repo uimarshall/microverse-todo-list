@@ -5,10 +5,34 @@ body {
 }
 
 form,
-header {
+header{
 	min-height: 40vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+}
+
+.default {
+	// position: fixed;
+	// margin-top: 25px;
+	margin-left: 50px;
+}
+
+.projectListItem{
+	max-width: min-content;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.addNewList {
+	float: right;
+	margin-top: -100px;
+	margin-right: 250px;
+}
+
+.addNewProject {
+	float: right;
+	margin-top: -125px;
+	margin-right: 250px;
 }
