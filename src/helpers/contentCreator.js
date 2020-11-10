@@ -49,6 +49,35 @@ const contentCreator = {
     return element;
   },
 
+  listForm(options) {
+    const element = document.createElement('select');
+    element.id = 'selectMenu';
+    for (let i = 0; i < options.length; i += 1) {
+      const option = document.createElement('option');
+      option.value = `${options[i]}`;
+      option.innerText = `${capFirst(options[i])}`;
+      element.appendChild(option);
+    }
+    return element;
+  },
+
+  withoutLabel(type, format, placeholder, className) {
+    const element = document.createElement(type);
+    element.type = format;
+    element.placeholder = placeholder;
+    element.classList.add(className);
+
+    return element;
+  },
+
+  withLabel(type, format, content, className) {
+    const element = document.createElement(type);
+    element.type = format;
+    element.classList.add(className);
+
+    return element;
+  },
+
   createTab(location) {
     const tab = document.createElement('p');
 

@@ -1,5 +1,6 @@
 import contentCreator from '../helpers/contentCreator';
-import addTodos from "./addForms";
+import addTodos from "./addList";
+import addProject from "./addProject";
 
 function clearContent(content){
   while (content.firstChild) {
@@ -54,6 +55,7 @@ export default function defaultIndex(content) {
       addNewProject.innerText = "Add New Project"
       addNewProject.onclick = () => {
         clearContent(content)
+        content.appendChild(addProject())
       }
       content.appendChild(addNewProject)
 
