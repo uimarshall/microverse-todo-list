@@ -31,15 +31,23 @@ export default function addTodos(){
    const submitWrapper = contentCreator.withText('div', '', 'form-control')
    const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
    submitBtn.value = "Add Todos"
-   submitBtn.onclick = (e) => {
+   submitBtn.onclick = () => {
       let list = {
           title: inputField2.value,
           description: textarea.value,
           completed: textBoxField.checked,
           priority: selectField.value,
       }
+      let listItems = []
 
-      localStorage.setItem(`${inputField.value}`, JSON.stringify(list))
+      //  const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
+
+      
+     const storageItem = localStorage.getItem(`${inputField.value}`)
+     alert(storageItem)
+     
+     listItems.push(storageItem)
+     localStorage.setItem(`${inputField.value}`, JSON.stringify(listItems))
 
    }
    submitWrapper.appendChild(submitBtn)

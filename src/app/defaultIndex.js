@@ -1,6 +1,7 @@
 import contentCreator from '../helpers/contentCreator';
 import addTodos from "./addList";
 import addProject from "./addProject";
+import toDoItem from './app';
 
 function clearContent(content){
   while (content.firstChild) {
@@ -31,7 +32,7 @@ export default function defaultIndex(content) {
   for(let i = 0; i < localStorage.length; i += 1){
     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
     console.log(localStorage.key(i))
-    const project = contentCreator.withText('p', localStorage.key(i))
+    const project = contentCreator.withText('ul', localStorage.key(i))
     project.classList.add('projectListItem')
     // projectChoiceTest.onclick = () => {
 
@@ -39,8 +40,8 @@ export default function defaultIndex(content) {
       // getToDoTitles(projectChoiceTest)
 
     content.appendChild(project);
-    const projectsStored = JSON.parse(localStorage[localStorage.key(i)]
-)
+    const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
+    project.appendChild(contentCreator.withText('li', projectsStored.title)) 
     // alert(projectsStored)
     project.onclick = ()=>{
       const list = document.createElement('ul')
@@ -53,6 +54,11 @@ export default function defaultIndex(content) {
     project.appendChild(list)
 
     }
+    // To edit each todo
+    // access the todo
+    // click on todo to display a form
+    // content of form should be from local storage
+    // then edit and submit
     
     
     
