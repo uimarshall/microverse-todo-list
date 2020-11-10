@@ -1,6 +1,7 @@
 import contentCreator from '../helpers/contentCreator';
+import addTodos from "./addForms";
 
-function goToAddForm(content){
+function clearContent(content){
   while (content.firstChild) {
     content.removeChild(content.firstChild);
   }
@@ -16,7 +17,7 @@ export default function defaultIndex(content) {
   const defaultProjectChoice = contentCreator.withHTML('p', 'Default Project')
   defaultProjectChoice.classList.add('projectListItem')
   defaultProjectChoice.onclick = () => {
-    goToAddForm(content)
+    clearContent(content)
   }
 
   getToDoTitles(defaultProjectChoice)
@@ -25,7 +26,7 @@ export default function defaultIndex(content) {
   const projectChoice1 = contentCreator.withText('p', 'Project1')
   projectChoice1.classList.add('projectListItem')
   projectChoice1.onclick = () => {
-    goToAddForm(content)
+    clearContent(content)
   }
     getToDoTitles(projectChoice1)
 
@@ -33,7 +34,7 @@ export default function defaultIndex(content) {
   const projectChoice2 = contentCreator.withText('p', 'Project2')
   projectChoice2.classList.add('projectListItem')
   projectChoice2.onclick = () => {
-    goToAddForm(content)
+    clearContent(content)
   }
     getToDoTitles(projectChoice2)
 
@@ -43,7 +44,8 @@ export default function defaultIndex(content) {
     addNewList.classList.add('addNewList')
     addNewList.innerText = "Add New List"
     addNewList.onclick = () => {
-      goToAddForm(content)
+      clearContent(content)
+      content.appendChild(addTodos())
     }
     content.appendChild(addNewList)
 
@@ -51,7 +53,7 @@ export default function defaultIndex(content) {
       addNewProject.classList.add('addNewProject')
       addNewProject.innerText = "Add New Project"
       addNewProject.onclick = () => {
-        goToAddForm(content)
+        clearContent(content)
       }
       content.appendChild(addNewProject)
 
