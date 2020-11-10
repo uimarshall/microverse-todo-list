@@ -1,5 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-  background: #606061;
+	background: #606061;
+}
+
+form,
+header {
+	min-height: 40vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
