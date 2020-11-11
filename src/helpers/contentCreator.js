@@ -70,12 +70,18 @@ const contentCreator = {
     return element;
   },
 
-  withLabel(type, format, content, className) {
+  withLabel(type, format, placeholder, className, labelFor) {
     const element = document.createElement(type);
     element.type = format;
+    element.placeholder = placeholder;
     element.classList.add(className);
+    element.id = labelFor
+    const label = document.createElement('label');
+    label.textContent = capFirst(labelFor)
+    label.for = labelFor
+    label.appendChild(element)
 
-    return element;
+    return label;
   },
 
   createTab(location) {

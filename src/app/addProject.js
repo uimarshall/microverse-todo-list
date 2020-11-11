@@ -16,8 +16,9 @@ export default function addProject(){
    submitBtn.onclick = (e) => {
       if(localStorage[inputField.value]){
          alert('This project exists')
+         e.preventDefault()
       }else {
-      localStorage.setItem(`${inputField.value}`, {})
+      localStorage.setItem(`${inputField.value}`, "")
    }
 }
    submitWrapper.appendChild(submitBtn)

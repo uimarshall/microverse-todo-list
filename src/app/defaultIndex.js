@@ -38,11 +38,15 @@ export default function defaultIndex(content) {
     // alert(localStorage.getItem(localStorage.key(i)))
     // const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
     const projectsStored = localStorage.getItem(localStorage[localStorage.key(i)])
+    const projArr = JSON.parse(projectsStored)//projectsStored.split("}{")
+    alert(projArr)
     // alert(projectsStored)
      // project.appendChild(contentCreator.withText('li', projectsStored.title))
      content.appendChild(project);
   }
 }
+
+
 
 
     const addNewList = document.createElement('button')

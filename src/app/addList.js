@@ -1,19 +1,37 @@
 import contentCreator from "../helpers/contentCreator";
 
+function addToStorage(project, list){
+   // alert(project)
+   // alert(list)
+   // alert(JSON.parse(localStorage[project]))
+   // alert(JSON.stringify(list))
+   // localStorage[project] = JSON.stringify(list)
+   const listItems = localStorage[project]
+   alert(listItems + JSON.stringify(list))
+   // localStorage[project][list.title] = list
+   // localStorage.setItem(`${inputField.value}`, {`${list.title}`: list})
+   // alert(test)
+   // test.setItem(`${list.title}`, list)
+   // alert(test.title)
+   // alert(test[list.title])
+   // alert(listItems)
+   // listArr.push(list)
+   // alert(listArr)
+   localStorage[project] = listItems + JSON.stringify(list)
+}
 
 export default function addTodos(){
    const form = document.createElement('form')
 
     const inputWrapper = contentCreator.withText('div', '', 'form-control')
-    // const inputField = contentCreator.withoutLabel('input', 'text', 'project', 'todo-input')
     const projects = []
     for(let i = 0; i < localStorage.length; i += 1){
       if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
          projects.push(localStorage.key(i))
       }
    }
-    const inputField = contentCreator.selectMenu(projects)
-    inputWrapper.appendChild(inputField)
+   const projectSelect = contentCreator.selectMenu(projects)
+    inputWrapper.appendChild(projectSelect)
     form.appendChild(inputWrapper)
 
     const inputWrapper2 = contentCreator.withText('div', '', 'form-control')
@@ -27,7 +45,7 @@ export default function addTodos(){
     form.append(inputWrapper3)
 
     const textBoxWrapper = contentCreator.withText('div', '', 'form-control')
-    const textBoxField = contentCreator.withoutLabel('input', 'checkbox', '', 'compconsted')
+    const textBoxField = contentCreator.withLabel('input', 'checkbox', '', 'compconsted', 'completed')
     textBoxWrapper.appendChild(textBoxField)
     form.appendChild(textBoxWrapper)
 
@@ -38,43 +56,16 @@ export default function addTodos(){
    const submitWrapper = contentCreator.withText('div', '', 'form-control')
    const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
    submitBtn.value = "Add Todos"
-   submitBtn.onclick = () => {
+   submitBtn.onclick = (e) => {
+      e.preventDefault()
+
       let list = {
           title: inputField2.value,
           description: textarea.value,
           completed: textBoxField.checked,
           priority: selectField.value,
       }
-      let listItems = []
-      for(let i = 0; i < localStorage.length; i += 1){
-         // alert(localStorage.key(i) == 'P1')
-
-         if(localStorage.key(i) == inputField.value){
-            const test = JSON.parse(localStorage[localStorage.key(i)])
-            // test = JSON.stringify(list)
-            alert(typeof list)
-         }
-      }
-      // if(localStorage[inputField.value]){
-      //    // const storageItem = localStorage[inputField.value]
-      //    const storageItem = localStorage[inputField.value]
-      //    alert(JSON.parse(storageItem))
-      //     // JSON.parse(localStorage[`${inputField.value}`])
-      //    // alert(JSON.parse(storageItem))
-      //    listItems.push(JSON.parse(storageItem))
-      //    // alert(storageItem)
-      // }
-
-     // const storageItem = JSON.parse(localStorage[inputField.value])
-     // const listItems = [...storageItem]
-     // alert(storageItem)
-     // if(localStorage.length != 0){
-     //    listItems.push(storageItem)
-     // }
-     listItems.push(list)
-     // alert(listItems)
-     localStorage.setItem(`${inputField.value}`, JSON.stringify(listItems))
-
+      addToStorage(projectSelect.value, list)
    }
    submitWrapper.appendChild(submitBtn)
    form.appendChild(submitWrapper)
