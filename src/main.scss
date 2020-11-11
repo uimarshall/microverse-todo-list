@@ -1,11 +1,25 @@
 @import "~bootstrap/scss/bootstrap";
 
+html {
+	margin-top: 0;
+	padding: 0;
+	box-sizing: border-box;
+	min-height: 100vh;
+}
+
 body {
-	background: #606061;
+	background-image: linear-gradient(120deg, #0fce8e, #79c424);
+	color: #fff;
+	font-family: "Orbitron", sans-serif;
+}
+
+header {
+	background-color: #2b381d;
+	margin-bottom: 2rem;
 }
 
 form,
-header{
+header {
 	min-height: 40vh;
 	display: flex;
 	justify-content: center;
@@ -19,7 +33,7 @@ header{
 	margin-left: 50px;
 }
 
-.projectListItem{
+.projectListItem {
 	max-width: min-content;
 	white-space: nowrap;
 	cursor: pointer;
@@ -27,14 +41,31 @@ header{
 
 .addNewList {
 	float: right;
-	margin-top: -100px;
+	// margin-top: -100px;
 	margin-right: 250px;
+
+	background: #152008;
+	color: #fff;
+	border: none;
+	padding: 1rem;
+	font-size: 1rem;
+	cursor: pointer;
+
+	clear: both;
 }
 
 .addNewProject {
 	float: right;
-	margin-top: -125px;
+	// margin-top: -125px;
 	margin-right: 250px;
+
+	background: #325a04;
+	color: #fff;
+	border: none;
+	padding: 1rem;
+	font-size: 1rem;
+	cursor: pointer;
+	clear: both;
 }
 
 .form-control {
