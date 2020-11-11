@@ -30,6 +30,12 @@ header {
 
 form {
 	min-height: 40vh;
+	min-width: 30%;
+}
+
+#content form {
+	display: block;
+	margin: 0 auto;
 }
 
 .default {
