@@ -19,52 +19,30 @@ export default function defaultIndex(content) {
 
   const defaultProjectChoice = contentCreator.withHTML('p', 'Default Project')
   defaultProjectChoice.classList.add('projectListItem')
-  defaultProjectChoice.onclick = () => {
+  // defaultProjectChoice.onclick = () => {
+  // }
 
-  }
-
-  getToDoTitles(defaultProjectChoice)
+  // getToDoTitles(defaultProjectChoice)
 
   content.appendChild(defaultProjectChoice);
 
   console.log(localStorage)
-
+  // alert(localStorage.length)
   for(let i = 0; i < localStorage.length; i += 1){
     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
     console.log(localStorage.key(i))
-    const project = contentCreator.withText('ul', localStorage.key(i))
-    project.classList.add('projectListItem')
-    // projectChoiceTest.onclick = () => {
+    const project = contentCreator.withText('ul', localStorage.key(i), 'projectListItem')
+    alert(localStorage[localStorage.key(i)])
+    let something = localStorage[localStorage.key(i)].split("},{")
+    alert(something[1])
 
-    // }
-      // getToDoTitles(projectChoiceTest)
-
-    content.appendChild(project);
-    const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
-    project.appendChild(contentCreator.withText('li', projectsStored.title)) 
+    // const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
+    const projectsStored = localStorage.getItem(localStorage[localStorage.key(i)])
     // alert(projectsStored)
-    project.onclick = ()=>{
-      const list = document.createElement('ul')
-    
-     list.appendChild(contentCreator.withText('li', projectsStored.title)) 
-     list.appendChild(contentCreator.withText('li', projectsStored.description)) 
-     list.appendChild(contentCreator.withText('li', projectsStored.priority)) 
-      
-    
-    project.appendChild(list)
-
-    }
-    // To edit each todo
-    // access the todo
-    // click on todo to display a form
-    // content of form should be from local storage
-    // then edit and submit
-    
-    
-    
+     // project.appendChild(contentCreator.withText('li', projectsStored.title))
+     content.appendChild(project);
   }
 }
-    // const projectChoiceTest = contentCreator.withText('p', localStorage.TestProject.title)
 
 
     const addNewList = document.createElement('button')
@@ -76,14 +54,14 @@ export default function defaultIndex(content) {
     }
     content.appendChild(addNewList)
 
-      const addNewProject = document.createElement('button')
-      addNewProject.classList.add('addNewProject')
-      addNewProject.innerText = "Add New Project"
-      addNewProject.onclick = () => {
-        clearContent(content)
-        content.appendChild(addProject())
-      }
-      content.appendChild(addNewProject)
+    const addNewProject = document.createElement('button')
+    addNewProject.classList.add('addNewProject')
+    addNewProject.innerText = "Add New Project"
+    addNewProject.onclick = () => {
+      clearContent(content)
+      content.appendChild(addProject())
+    }
+    content.appendChild(addNewProject)
 
   content.classList.add('default');
 

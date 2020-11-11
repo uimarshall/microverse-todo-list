@@ -40,13 +40,21 @@ export default function addTodos(){
       }
       let listItems = []
 
-      //  const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
+      if(localStorage[inputField.value]){
+         const storageItem = localStorage.getItem(`${inputField.value}`)
+         // const storageItem = JSON.parse(localStorage[`${inputField.value}`])
+         // alert(JSON.parse(storageItem))
+         listItems.push(JSON.parse(storageItem))
+      }
 
-      
-     const storageItem = localStorage.getItem(`${inputField.value}`)
-     alert(storageItem)
-     
-     listItems.push(storageItem)
+     // const storageItem = JSON.parse(localStorage[inputField.value])
+     // const listItems = [...storageItem]
+     // alert(storageItem)
+     // if(localStorage.length != 0){
+     //    listItems.push(storageItem)
+     // }
+     listItems.push(list)
+     alert(listItems)
      localStorage.setItem(`${inputField.value}`, JSON.stringify(listItems))
 
    }
