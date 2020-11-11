@@ -16,15 +16,19 @@ body {
 header {
 	background-color: #2b381d;
 	margin-bottom: 2rem;
+	min-height: 20vh;
 }
 
 form,
 header {
-	min-height: 40vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+}
+
+form {
+	min-height: 40vh;
 }
 
 .default {
@@ -39,25 +43,36 @@ header {
 	cursor: pointer;
 }
 
-.addNewList {
-	float: right;
-	// margin-top: -100px;
-	margin-right: 250px;
+#content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
+.left-side {
+	border: 1px solid black;
+	min-height: 60vh;
+	padding: 3rem 4rem;
+	margin-left: 0;
+	background-color: #223a07;
+}
+.right-side {
+	border: 1px solid #5f5c5c;
+	margin-right: 3rem;
+}
+
+.addNewList {
 	background: #152008;
 	color: #fff;
 	border: none;
 	padding: 1rem;
 	font-size: 1rem;
 	cursor: pointer;
-
-	clear: both;
 }
 
 .addNewProject {
-	float: right;
 	// margin-top: -125px;
-	margin-right: 250px;
+	// margin-right: 250px;
 
 	background: #325a04;
 	color: #fff;
@@ -65,7 +80,6 @@ header {
 	padding: 1rem;
 	font-size: 1rem;
 	cursor: pointer;
-	clear: both;
 }
 
 .form-control {
