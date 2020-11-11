@@ -16,7 +16,10 @@ function getToDoTitles(project){
 export default function defaultIndex(content) {
  let expand = true
 
-  content.appendChild(contentCreator.withText('h2', 'Project List'));
+ const leftSide = contentCreator.withText('div', '', 'left-side')
+ content.appendChild(leftSide)
+
+  leftSide.appendChild(contentCreator.withText('h2', 'Project List'));
 
   if (!localStorage['Default Project']){
     localStorage['Default Project'] = '';
@@ -53,10 +56,13 @@ export default function defaultIndex(content) {
        project.appendChild(list)
      }
     }
-     content.appendChild(project);
+     leftSide.appendChild(project);
   }
 }
 
+
+ const rightSide = contentCreator.withText('div', '', 'right-side')
+ content.appendChild(rightSide)
 
 
 
@@ -65,14 +71,14 @@ export default function defaultIndex(content) {
       clearContent(content)
       content.appendChild(addTodos())
     }
-    content.appendChild(addNewList)
+    rightSide.appendChild(addNewList)
 
     const addNewProject = contentCreator.withText('button', "Add New Project", 'addNewProject')
     addNewProject.onclick = () => {
       clearContent(content)
       content.appendChild(addProject())
     }
-    content.appendChild(addNewProject)
+    rightSide.appendChild(addNewProject)
 
   content.classList.add('default');
 
