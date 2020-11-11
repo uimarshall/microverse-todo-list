@@ -1,23 +1,8 @@
 import contentCreator from "../helpers/contentCreator";
 
 function addToStorage(project, list){
-   // alert(project)
-   // alert(list)
-   // alert(JSON.parse(localStorage[project]))
-   // alert(JSON.stringify(list))
-   // localStorage[project] = JSON.stringify(list)
-   const listItems = localStorage[project]
-   alert(listItems + JSON.stringify(list))
-   // localStorage[project][list.title] = list
-   // localStorage.setItem(`${inputField.value}`, {`${list.title}`: list})
-   // alert(test)
-   // test.setItem(`${list.title}`, list)
-   // alert(test.title)
-   // alert(test[list.title])
-   // alert(listItems)
-   // listArr.push(list)
-   // alert(listArr)
-   localStorage[project] = listItems + JSON.stringify(list)
+   const prevLists = localStorage[project]
+   localStorage[project] = prevLists + JSON.stringify(list) + "|"
 }
 
 export default function addTodos(){
@@ -56,9 +41,7 @@ export default function addTodos(){
    const submitWrapper = contentCreator.withText('div', '', 'form-control')
    const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
    submitBtn.value = "Add Todos"
-   submitBtn.onclick = (e) => {
-      e.preventDefault()
-
+   submitBtn.onclick = () => {
       let list = {
           title: inputField2.value,
           description: textarea.value,
