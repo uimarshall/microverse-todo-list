@@ -30,12 +30,12 @@ export default function defaultIndex(content) {
   // alert(localStorage.length)
   for(let i = 0; i < localStorage.length; i += 1){
     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
-    console.log(localStorage.key(i))
+    // console.log(localStorage.key(i))
     const project = contentCreator.withText('ul', localStorage.key(i), 'projectListItem')
-    alert(localStorage[localStorage.key(i)])
-    let something = localStorage[localStorage.key(i)].split("},{")
-    alert(something[1])
 
+    // let something = localStorage[localStorage.key(i)].split("}],{").join("},{")
+    // alert(something)
+    // alert(localStorage.getItem(localStorage.key(i)))
     // const projectsStored = JSON.parse(localStorage[localStorage.key(i)])
     const projectsStored = localStorage.getItem(localStorage[localStorage.key(i)])
     // alert(projectsStored)

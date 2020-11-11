@@ -5,7 +5,14 @@ export default function addTodos(){
    const form = document.createElement('form')
 
     const inputWrapper = contentCreator.withText('div', '', 'form-control')
-    const inputField = contentCreator.withoutLabel('input', 'text', 'project', 'todo-input')
+    // const inputField = contentCreator.withoutLabel('input', 'text', 'project', 'todo-input')
+    const projects = []
+    for(let i = 0; i < localStorage.length; i += 1){
+      if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
+         projects.push(localStorage.key(i))
+      }
+   }
+    const inputField = contentCreator.selectMenu(projects)
     inputWrapper.appendChild(inputField)
     form.appendChild(inputWrapper)
 
@@ -39,13 +46,24 @@ export default function addTodos(){
           priority: selectField.value,
       }
       let listItems = []
+      for(let i = 0; i < localStorage.length; i += 1){
+         // alert(localStorage.key(i) == 'P1')
 
-      if(localStorage[inputField.value]){
-         const storageItem = localStorage.getItem(`${inputField.value}`)
-         // const storageItem = JSON.parse(localStorage[`${inputField.value}`])
-         // alert(JSON.parse(storageItem))
-         listItems.push(JSON.parse(storageItem))
+         if(localStorage.key(i) == inputField.value){
+            const test = JSON.parse(localStorage[localStorage.key(i)])
+            // test = JSON.stringify(list)
+            alert(typeof list)
+         }
       }
+      // if(localStorage[inputField.value]){
+      //    // const storageItem = localStorage[inputField.value]
+      //    const storageItem = localStorage[inputField.value]
+      //    alert(JSON.parse(storageItem))
+      //     // JSON.parse(localStorage[`${inputField.value}`])
+      //    // alert(JSON.parse(storageItem))
+      //    listItems.push(JSON.parse(storageItem))
+      //    // alert(storageItem)
+      // }
 
      // const storageItem = JSON.parse(localStorage[inputField.value])
      // const listItems = [...storageItem]
@@ -54,7 +72,7 @@ export default function addTodos(){
      //    listItems.push(storageItem)
      // }
      listItems.push(list)
-     alert(listItems)
+     // alert(listItems)
      localStorage.setItem(`${inputField.value}`, JSON.stringify(listItems))
 
    }

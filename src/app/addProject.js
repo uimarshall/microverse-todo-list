@@ -14,8 +14,12 @@ export default function addProject(){
    const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
    submitBtn.value = "Add Project"
    submitBtn.onclick = (e) => {
+      if(localStorage[inputField.value]){
+         alert('This project exists')
+      }else {
       localStorage.setItem(`${inputField.value}`, {})
    }
+}
    submitWrapper.appendChild(submitBtn)
    form.appendChild(submitWrapper)
 
