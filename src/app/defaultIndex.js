@@ -35,19 +35,27 @@ export default function defaultIndex(content) {
     const projArr = projectsStored.split("|")
 
     if(projArr != ""){
-      for(let i = 0; i < projArr.length - 1; i += 1){
-        let list = contentCreator.withText('li', JSON.parse(projArr[i]).title)
+      for(let j = 0; j < projArr.length - 1; j += 1){
+        let list = contentCreator.withText('li', JSON.parse(projArr[j]).title)
         list.onclick = () => {
           if (expand) {
             clearContent(list)
-            list.appendChild(contentCreator.withText('li', JSON.parse(projArr[i]).title))
+            list.appendChild(contentCreator.withText('li', JSON.parse(projArr[j]).title))
             expand = false
           } else {
           clearContent(list)
-          let thisList = contentCreator.withText('ul', `Title: ${JSON.parse(projArr[i]).title}`)
-          thisList.appendChild(contentCreator.withText('li', `Description:  ${JSON.parse(projArr[i]).description}`))
-          thisList.appendChild(contentCreator.withText('li', `Completed: ${JSON.parse(projArr[i]).completed}`))
-          thisList.appendChild(contentCreator.withText('li', `Priority: ${JSON.parse(projArr[i]).priority}`))
+          let thisList = contentCreator.withText('ul', `Title: ${JSON.parse(projArr[j]).title}`)
+          thisList.appendChild(contentCreator.withText('li', `Description:  ${JSON.parse(projArr[j]).description}`))
+          thisList.appendChild(contentCreator.withText('li', `Completed: ${JSON.parse(projArr[j]).completed}`))
+          thisList.appendChild(contentCreator.withText('li', `Priority: ${JSON.parse(projArr[j]).priority}`))
+          let deleteBtn = contentCreator.withText('li', 'Delete')
+          deleteBtn.onclick = () => {
+            projArr.splice(projArr.indexOf(projArr[j]), 1)
+            localStorage[localStorage.key(i)] = projArr.join('|')
+
+            location.reload()
+          }
+          thisList.appendChild(deleteBtn)
 
           list.appendChild(thisList)
           expand = true
