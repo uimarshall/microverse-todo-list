@@ -5,19 +5,22 @@ function addToStorage(project, list){
    localStorage[project] = prevLists + JSON.stringify(list) + "|"
 }
 
+function withProjects(projects){
+   for(let i = 0; i < localStorage.length; i += 1){
+     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
+        projects.push(localStorage.key(i))
+     }
+  }
+ return projects
+}
+
 export default function addTodos(){
    const form = document.createElement('form')
 
-    const inputWrapper = contentCreator.withText('div', '', 'form-control')
-    const projects = []
-    for(let i = 0; i < localStorage.length; i += 1){
-      if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
-         projects.push(localStorage.key(i))
-      }
-   }
-   const projectSelect = contentCreator.selectMenu(projects)
-    inputWrapper.appendChild(projectSelect)
-    form.appendChild(inputWrapper)
+   const inputWrapper = contentCreator.withText('div', '', 'form-control')
+   const projectSelect = contentCreator.selectMenu(withProjects([]))
+   inputWrapper.appendChild(projectSelect)
+   form.appendChild(inputWrapper)
 
     const inputWrapper2 = contentCreator.withText('div', '', 'form-control')
     const inputField2 = contentCreator.withoutLabel('input', 'text', 'title', 'todo-input')

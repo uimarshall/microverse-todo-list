@@ -27,16 +27,6 @@ const contentCreator = {
     return element;
   },
 
-  menuItem(type, content, side, placement, size) {
-    const element = document.createElement(type);
-    element.textContent = content;
-    element.classList.add(`menu${side}`);
-    element.classList.add(`menu${placement}`);
-    element.classList.add(`menu${size}`);
-
-    return element;
-  },
-
   selectMenu(options) {
     const element = document.createElement('select');
     element.id = 'selectMenu';
@@ -70,6 +60,16 @@ const contentCreator = {
     return element;
   },
 
+  withoutLabelPlusValue(type, format, value, placeholder, className) {
+    const element = document.createElement(type);
+    element.type = format;
+    element.value = value;
+    element.placeholder = placeholder;
+    element.classList.add(className);
+
+    return element;
+  },
+
   withLabel(type, format, placeholder, className, labelFor) {
     const element = document.createElement(type);
     element.type = format;
@@ -82,28 +82,6 @@ const contentCreator = {
     label.appendChild(element)
 
     return label;
-  },
-
-  createTab(location) {
-    const tab = document.createElement('p');
-
-    function value(location) {
-      let value = 'active';
-      if (location === 'home') {
-        tab.style.color = 'purple';
-        tab.classList.add('active');
-      } else {
-        tab.style.color = 'black';
-        value = 'inactive';
-      }
-      return value;
-    }
-    tab.id = `${location}Tab`;
-    tab.classList.add('tab');
-    tab.textContent = `${capFirst(location)}`;
-    tab.value = value(location);
-
-    return tab;
   },
 };
 
