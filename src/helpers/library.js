@@ -113,14 +113,13 @@ function validateProjectName(e, projectName){
 }
 
 function createList(project, title, description, completed, priority) {
-   let list = {
+   return {
      project: project,
      title: title,
      description: description,
      completed: completed,
      priority: priority,
    }
-   return list
 }
 
 export { clearContent, createDefaultProject, displayProjectNames, addToStorage, withProjects, validateProjectName, createList };
