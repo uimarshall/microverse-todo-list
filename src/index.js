@@ -2,7 +2,7 @@ import './main.scss';
 import contentCreator from './helpers/contentCreator';
 import addTodos from "./app/addList";
 import addProject from "./app/addProject";
-import { clearContent, createDefaultProject, displayProjectNames, getToDoTitles } from './helpers/library'
+import { clearContent, createDefaultProject, displayProjectNames } from './helpers/library'
 
 console.log(localStorage)
 

@@ -13,13 +13,12 @@ function createDefaultProject(){
 }
 
 function displayProjectNames(leftSide){
+  const body = document.querySelector('body')
   for(let i = 0; i < localStorage.length; i += 1){
     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
       const project = contentCreator.withText('ul', localStorage.key(i), 'projectListItem')
-
       const projectsStored = localStorage[localStorage.key(i)]
-
-      getToDoTitles(project, projectsStored.split("|"), i)
+      getToDoTitles(body, project, projectsStored.split("|"), i)
 
       leftSide.appendChild(project);
     }
@@ -27,45 +26,63 @@ function displayProjectNames(leftSide){
 }
 
 function displayList(currentList){
-  const thisList = contentCreator.withText('ul', `Title: ${JSON.parse(currentList).title}`)
-  thisList.appendChild(contentCreator.withText('li', `Description:    ${JSON.parse(currentList).description}`))
-  thisList.appendChild(contentCreator.withText('li', `Completed:  ${JSON.parse(currentList).completed}`))
-  thisList.appendChild(contentCreator.withText('li', `Priority:   ${JSON.parse(currentList).priority}`))
-  const deleteBtn = contentCreator.withText('li', 'Delete')
-  deleteBtn.onclick = () => {
-       projArr.splice(projArr.indexOf(projArr[j]), 1)
-       localStorage[localStorage.key(i)] = projArr.join('|')
-       project.removeChild(list)
-  }
-  thisList.appendChild(deleteBtn)
+  const list = JSON.parse(currentList)
+  const thisList = contentCreator.withValue('ul', `Title: ${list.title}`, `${list.title}`)
+  thisList.appendChild(contentCreator.withText('li', `Description:    ${list.description}`))
+  thisList.appendChild(contentCreator.withText('li', `Completed:  ${list.completed}`))
+  thisList.appendChild(contentCreator.withText('li', `Priority:   ${list.priority}`))
 
   return thisList
 }
 
-function getToDoTitles(project, projArr, i){
-  //create a display: none class to toggle
-  let expand = true
+function printList(list, displayContainer, forThisProject, i, project, body){
+  // if(list.classList.contains('active')){
+    // clearContent(displayContainer)
+    const thisList = displayList(forThisProject)
+    const deleteBtn = contentCreator.withText('li', 'Delete')
+    deleteBtn.onclick = () => {
+         projArr.splice(projArr.indexOf(forThisProject), 1)
+         localStorage[localStorage.key(i)] = projArr.join('|')
+         project.removeChild(list)
+         clearContent(thisList)
+         body.removeChild(thisList)
+    }
+    thisList.appendChild(deleteBtn)
+    displayContainer.appendChild(thisList)
+  // } else {
+    // clearContent(displayContainer)
+  // }
+}
 
+function displayTodos(body, forThisProject, list, project, projArr, i){
+  let displayContainer = document.querySelector('.todos')
+  if (displayContainer != null){
+    if (list.classList.contains('active')){
+      list.classList.toggle('active')
+      clearContent(displayContainer)
+      body.removeChild(displayContainer)
+    }
+    const active = document.querySelector('.active')
+    active.classList.toggle('active')
+    body.removeChild(displayContainer)
+
+  }
+
+  displayContainer = contentCreator.withText('div', '', 'todos')
+
+  printList(list, displayContainer, forThisProject, i, project, body)
+  body.appendChild(displayContainer)
+
+  list.classList.toggle('active')
+
+}
+
+function getToDoTitles(body, project, projArr, i){
   if(projArr != ""){
     for(let j = 0; j < projArr.length - 1; j += 1){
       const list = contentCreator.withText('li', JSON.parse(projArr[j]).title)
       list.onclick = () => {
-        clearContent(list)
-        list.appendChild(contentCreator.withText('li', JSON.parse(projArr[j]).title))
-        if (expand) {
-          
-
-          expand = false
-
-        } else {
-
-const displayTodos = contentCreator.withText('div', '', 'todos')
-
-          displayTodos.appendChild(displayList(projArr[j]))
-const body = document.querySelector('body')
-body.appendChild(displayTodos)
-          expand = true
-        }
+        displayTodos(body, projArr[j], list, project, projArr, i)
       }
      project.appendChild(list)
    }
@@ -103,4 +120,4 @@ function validateProjectName(e, projectName){
   }
 }
 
-export { clearContent, createDefaultProject, displayProjectNames, getToDoTitles, addToStorage, withProjects, alertMessage, validateProjectName };
+export { clearContent, createDefaultProject, displayProjectNames, addToStorage, withProjects, validateProjectName };

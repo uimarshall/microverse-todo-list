@@ -9,6 +9,14 @@ const contentCreator = {
 
     return element;
   },
+    withValue(type, content, value, className) {
+      const element = document.createElement(type);
+      element.textContent = content;
+      element.id = value;
+      element.classList.add(className);
+
+      return element;
+    },
 
   selectMenu(options) {
     const element = document.createElement('select');

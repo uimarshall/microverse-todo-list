@@ -1,5 +1,5 @@
 import contentCreator from "../helpers/contentCreator";
-import { alertMessage, validateProjectName } from '../helpers/library'
+import {validateProjectName} from '../helpers/library'
 
 export default function addProject(){
    const form = document.createElement('form')

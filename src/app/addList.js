@@ -41,7 +41,9 @@ export default function addTodos(){
    const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', "Add ToDo", '', 'compconsted')
    submitBtn.classList.add('btn', 'btn-info', 'my-3')
    submitBtn.onclick = () => {
+     // toDoItem(projectSelect.value, inputField2.value, textarea.value, textBoxField.checked, selectField.value)
       let list = {
+        project: projectSelect.value,
         title: inputField2.value,
         description: textarea.value,
         completed: textBoxField.checked,
