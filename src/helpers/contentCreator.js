@@ -9,14 +9,15 @@ const contentCreator = {
 
     return element;
   },
-    withValue(type, content, value, className) {
-      const element = document.createElement(type);
-      element.textContent = content;
-      element.id = value;
-      element.classList.add(className);
 
-      return element;
-    },
+  withValue(type, content, value, className) {
+    const element = document.createElement(type);
+    element.textContent = content;
+    element.id = value;
+    element.classList.add(className);
+
+    return element;
+  },
 
   selectMenu(options) {
     const element = document.createElement('select');
@@ -54,11 +55,11 @@ const contentCreator = {
     element.type = format;
     element.placeholder = placeholder;
     element.classList.add(className);
-    element.id = labelFor
+    element.id = labelFor;
     const label = document.createElement('label');
-    label.textContent = capFirst(labelFor)
-    label.for = labelFor
-    label.appendChild(element)
+    label.textContent = capFirst(labelFor);
+    label.for = labelFor;
+    label.appendChild(element);
 
     return label;
   },

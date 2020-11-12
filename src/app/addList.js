@@ -1,49 +1,58 @@
-import contentCreator from "../helpers/contentCreator";
-import { addToStorage, withProjects, createList } from '../helpers/library'
+import contentCreator from '../helpers/contentCreator';
+import {
+  addToStorage,
+  withProjects,
+  createList,
+} from '../helpers/library';
 
-export default function addTodos(){
-  const form = document.createElement('form')
+export default function addList() {
+  const form = document.createElement('form');
 
-   const inputWrapper = contentCreator.withText('div', '', 'form-group')
-   const projectSelect = contentCreator.selectMenu(withProjects([]))
-   projectSelect.classList.add('form-control')
-   inputWrapper.appendChild(projectSelect)
-   form.appendChild(inputWrapper)
+  const inputWrapper = contentCreator.withText('div', '', 'form-group');
+  const projectSelect = contentCreator.selectMenu(withProjects([]));
+  projectSelect.classList.add('form-control');
+  inputWrapper.appendChild(projectSelect);
+  form.appendChild(inputWrapper);
 
-   const inputWrapper2 = contentCreator.withText('div', '', 'form-group')
-   const inputField2 = contentCreator.withoutLabel('input', 'text', 'title', 'todo-input')
-   inputField2.classList.add('form-control')
-   inputWrapper2.appendChild(inputField2)
-   form.appendChild(inputWrapper2)
+  const inputWrapper2 = contentCreator.withText('div', '', 'form-group');
+  const inputField2 = contentCreator.withoutLabel('input', 'text', 'title', 'form-control');
+  inputWrapper2.appendChild(inputField2);
+  form.appendChild(inputWrapper2);
 
-   const inputWrapper3 = contentCreator.withText('div', '', 'form-group')
+  const inputWrapper3 = contentCreator.withText('div', '', 'form-group');
 
-   const textarea = contentCreator.withText('textarea', '', 'desc')
-   textarea.classList.add('form-control')
-   textarea.setAttribute('placeholder', 'Enter Description')
-   inputWrapper3.appendChild(textarea)
-   form.append(inputWrapper3)
+  const textarea = contentCreator.withText('textarea', '', 'form-control');
+  textarea.setAttribute('placeholder', 'Enter Description');
+  inputWrapper3.appendChild(textarea);
+  form.append(inputWrapper3);
 
-   const textBoxWrapper = contentCreator.withText('div', '', 'form-check')
-   const textBoxField = contentCreator.withLabel('input', 'checkbox', '', 'compconsted', 'completed')
-   textBoxWrapper.appendChild(textBoxField)
-   form.appendChild(textBoxWrapper)
+  // const textBoxWrapper = contentCreator.withText('div', '', 'form-check');
+  // const textBoxField = contentCreator.withLabel('input', 'checkbox', '', 'compconsted', 'completed');
+  // textBoxWrapper.appendChild(textBoxField);
+  // form.appendChild(textBoxWrapper);
 
-   const menuOptions = ["low", "medium", "high"]
-   const selectField = contentCreator.selectMenu(menuOptions)
-   selectField.classList.add('form-control')
-   form.appendChild(selectField)
+  const dateWrapper = contentCreator.withText('div', '', 'form-check');
+  const dateSelect = contentCreator.withoutLabel('input', 'date', '', 'form-control');
+  dateWrapper.appendChild(dateSelect);
+  form.appendChild(dateWrapper);
 
-   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', "Add ToDo", '', 'compconsted')
-   submitBtn.classList.add('btn', 'btn-info', 'my-3')
-   submitBtn.onclick = () => {
-      addToStorage(projectSelect.value, createList(projectSelect.value, inputField2.value, textarea.value, textBoxField.checked, selectField.value))
-   }
-   form.appendChild(submitBtn)
+  const menuOptions = ['low', 'medium', 'high'];
+  const selectField = contentCreator.selectMenu(menuOptions);
+  selectField.classList.add('form-control');
+  form.appendChild(selectField);
 
-   form.classList.add('default');
+  const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Add ToDo', '', 'compconsted');
+  submitBtn.classList.add('btn', 'btn-info', 'my-3');
+  submitBtn.onclick = (e) => {
+    // e.preventDefault();
+    // alert(textBoxField.value);
+    addToStorage(projectSelect.value,
+      createList(projectSelect.value, inputField2.value,
+        textarea.value, textBoxField.checked, dateSelect.value, selectField.value));
+  };
+  form.appendChild(submitBtn);
 
-   return form;
+  form.classList.add('default');
 
-
+  return form;
 }
