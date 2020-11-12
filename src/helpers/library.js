@@ -51,17 +51,19 @@ function getToDoTitles(project, projArr, i){
       const list = contentCreator.withText('li', JSON.parse(projArr[j]).title)
       list.onclick = () => {
         clearContent(list)
+        list.appendChild(contentCreator.withText('li', JSON.parse(projArr[j]).title))
         if (expand) {
-          list.appendChild(contentCreator.withText('li', JSON.parse(projArr[j]).title))
+          
 
           expand = false
 
         } else {
 
+const displayTodos = contentCreator.withText('div', '', 'todos')
 
-
-          list.appendChild(displayList(projArr[j]))
-
+          displayTodos.appendChild(displayList(projArr[j]))
+const body = document.querySelector('body')
+body.appendChild(displayTodos)
           expand = true
         }
       }
