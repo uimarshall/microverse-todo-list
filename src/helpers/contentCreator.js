@@ -10,36 +10,7 @@ const contentCreator = {
     return element;
   },
 
-  withHTML(type, content, className) {
-    const element = document.createElement(type);
-    element.innerHTML = content;
-    element.classList.add(className);
-
-    return element;
-  },
-
-  withIMG(type, content, className, id) {
-    const element = document.createElement(type);
-    element.src = content;
-    element.classList.add(className);
-    element.id = id;
-
-    return element;
-  },
-
   selectMenu(options) {
-    const element = document.createElement('select');
-    element.id = 'selectMenu';
-    for (let i = 0; i < options.length; i += 1) {
-      const option = document.createElement('option');
-      option.value = `${options[i]}`;
-      option.innerText = `${capFirst(options[i])}`;
-      element.appendChild(option);
-    }
-    return element;
-  },
-
-  listForm(options) {
     const element = document.createElement('select');
     element.id = 'selectMenu';
     for (let i = 0; i < options.length; i += 1) {

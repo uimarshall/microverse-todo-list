@@ -1,6 +1,4 @@
-function toDoItem(project, title, description, date, completed, priority) {
-  // this.project = project || ='Default';
-  this.project = project;
+function toDoItem(title, description, date, completed, priority) {
   this.title = title;
   this.description = description;
   this.date = date;

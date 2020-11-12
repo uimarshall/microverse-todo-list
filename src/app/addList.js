@@ -1,22 +1,10 @@
 import contentCreator from "../helpers/contentCreator";
+import { addToStorage, withProjects } from '../helpers/library'
+import toDoItem from './createList'
 
-function addToStorage(project, list){
-   const prevLists = localStorage[project]
-   localStorage[project] = prevLists + JSON.stringify(list) + "|"
-}
-
-function withProjects(projects){
-   for(let i = 0; i < localStorage.length; i += 1){
-     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
-        projects.push(localStorage.key(i))
-     }
-  }
- return projects
-}
 
 export default function addTodos(){
   const form = document.createElement('form')
-
 
    const inputWrapper = contentCreator.withText('div', '', 'form-group')
    const projectSelect = contentCreator.selectMenu(withProjects([]))
@@ -32,10 +20,12 @@ export default function addTodos(){
 
     const inputWrapper3 = contentCreator.withText('div', '', 'form-group')
 
-    const textarea =  contentCreator.withText('textarea', '', 'desc')
+    const textarea = contentCreator.withText('textarea', '', 'desc')
     textarea.classList.add('form-control')
     textarea.setAttribute('placeholder', 'Enter Description')
     inputWrapper3.appendChild(textarea)
+
+
     form.append(inputWrapper3)
 
     const textBoxWrapper = contentCreator.withText('div', '', 'form-check')
@@ -48,20 +38,17 @@ export default function addTodos(){
    selectField.classList.add('form-control')
    form.appendChild(selectField)
 
-   // const submitWrapper = contentCreator.withText('div', '', 'form-control')
-   const submitBtn = contentCreator.withoutLabel('input', 'submit', '', 'compconsted')
+   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', "Add ToDo", '', 'compconsted')
    submitBtn.classList.add('btn', 'btn-info', 'my-3')
-   submitBtn.value = "Add Todos"
    submitBtn.onclick = () => {
       let list = {
-          title: inputField2.value,
-          description: textarea.value,
-          completed: textBoxField.checked,
-          priority: selectField.value,
+        title: inputField2.value,
+        description: textarea.value,
+        completed: textBoxField.checked,
+        priority: selectField.value,
       }
       addToStorage(projectSelect.value, list)
    }
-   // submitWrapper.appendChild(submitBtn)
 
    form.appendChild(submitBtn)
 
