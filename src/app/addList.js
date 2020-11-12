@@ -5,20 +5,24 @@ function addToStorage(project, list){
    localStorage[project] = prevLists + JSON.stringify(list) + "|"
 }
 
-export default function addTodos(){
-   const form = document.createElement('form')
+function withProjects(projects){
+   for(let i = 0; i < localStorage.length; i += 1){
+     if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
+        projects.push(localStorage.key(i))
+     }
+  }
+ return projects
+}
 
-    const inputWrapper = contentCreator.withText('div', '', 'form-group')
-    const projects = []
-    for(let i = 0; i < localStorage.length; i += 1){
-      if (localStorage.key(i) != 'loglevel:webpack-dev-server'){
-         projects.push(localStorage.key(i))
-      }
-   }
-   const projectSelect = contentCreator.selectMenu(projects)
+export default function addTodos(){
+  const form = document.createElement('form')
+
+
+   const inputWrapper = contentCreator.withText('div', '', 'form-group')
+   const projectSelect = contentCreator.selectMenu(withProjects([]))
    projectSelect.classList.add('form-control')
-    inputWrapper.appendChild(projectSelect)
-    form.appendChild(inputWrapper)
+   inputWrapper.appendChild(projectSelect)
+   form.appendChild(inputWrapper)
 
     const inputWrapper2 = contentCreator.withText('div', '', 'form-group')
     const inputField2 = contentCreator.withoutLabel('input', 'text', 'title', 'todo-input')
@@ -27,7 +31,7 @@ export default function addTodos(){
     form.appendChild(inputWrapper2)
 
     const inputWrapper3 = contentCreator.withText('div', '', 'form-group')
-    
+
     const textarea =  contentCreator.withText('textarea', '', 'desc')
     textarea.classList.add('form-control')
     textarea.setAttribute('placeholder', 'Enter Description')
@@ -58,7 +62,7 @@ export default function addTodos(){
       addToStorage(projectSelect.value, list)
    }
    // submitWrapper.appendChild(submitBtn)
-   
+
    form.appendChild(submitBtn)
 
    form.classList.add('default');

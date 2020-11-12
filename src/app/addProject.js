@@ -1,5 +1,20 @@
 import contentCreator from "../helpers/contentCreator";
 
+function alertMessage(e){
+  e.preventDefault()
+  const header = document.querySelector('header')
+  const alert = document.querySelector('.validation-alert')
+  if(alert){ header.removeChild(alert) }
+  header.appendChild(contentCreator.withText('p', 'This Project Already Exists!', 'validation-alert'))
+}
+
+function validateProjectName(e, projectName){
+  if(localStorage[projectName] != undefined){
+    alertMessage(e)
+  } else {
+     localStorage.setItem(`${projectName}`, "")
+  }
+}
 
 export default function addProject(){
    const form = document.createElement('form')
@@ -16,12 +31,7 @@ export default function addProject(){
    submitBtn.classList.add('btn', 'btn-info', 'my-3')
    submitBtn.value = "Add Project"
    submitBtn.onclick = (e) => {
-      if(localStorage[inputField.value]){
-         e.preventDefault()
-         alert('This project exists')
-      } else {
-         localStorage.setItem(`${inputField.value}`, "")
-      }
+      validateProjectName(e, inputField.value)
    }
    // submitWrapper.appendChild(submitBtn)
    // form.appendChild(submitWrapper)
