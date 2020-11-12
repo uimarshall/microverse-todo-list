@@ -4,8 +4,6 @@ import addTodos from "./app/addList";
 import addProject from "./app/addProject";
 import { clearContent, createDefaultProject, displayProjectNames } from './helpers/library'
 
-console.log(localStorage)
-
 const content = document.getElementById('content')
 
 const leftSide = contentCreator.withText('div', '', 'left-side')

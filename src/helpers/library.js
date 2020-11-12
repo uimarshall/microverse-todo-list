@@ -35,9 +35,7 @@ function displayList(currentList){
   return thisList
 }
 
-function printList(list, displayContainer, forThisProject, i, project, body){
-  // if(list.classList.contains('active')){
-    // clearContent(displayContainer)
+function printList(list, displayContainer, forThisProject, i, project, body, projArr){
     const thisList = displayList(forThisProject)
     const deleteBtn = contentCreator.withText('li', 'Delete')
     deleteBtn.onclick = () => {
@@ -45,36 +43,30 @@ function printList(list, displayContainer, forThisProject, i, project, body){
          localStorage[localStorage.key(i)] = projArr.join('|')
          project.removeChild(list)
          clearContent(thisList)
-         body.removeChild(thisList)
+         body.removeChild(displayContainer)
     }
     thisList.appendChild(deleteBtn)
     displayContainer.appendChild(thisList)
-  // } else {
-    // clearContent(displayContainer)
-  // }
 }
 
 function displayTodos(body, forThisProject, list, project, projArr, i){
   let displayContainer = document.querySelector('.todos')
   if (displayContainer != null){
+    clearContent(displayContainer)
     if (list.classList.contains('active')){
       list.classList.toggle('active')
-      clearContent(displayContainer)
       body.removeChild(displayContainer)
     }
     const active = document.querySelector('.active')
     active.classList.toggle('active')
-    body.removeChild(displayContainer)
-
+    printList(list, displayContainer, forThisProject, i, project, body, projArr)
+    list.classList.toggle('active')
+  } else {
+    let displayContainer = contentCreator.withText('div', '', 'todos')
+    printList(list, displayContainer, forThisProject, i, project, body, projArr)
+    body.appendChild(displayContainer)
+    list.classList.toggle('active')
   }
-
-  displayContainer = contentCreator.withText('div', '', 'todos')
-
-  printList(list, displayContainer, forThisProject, i, project, body)
-  body.appendChild(displayContainer)
-
-  list.classList.toggle('active')
-
 }
 
 function getToDoTitles(body, project, projArr, i){
@@ -120,4 +112,15 @@ function validateProjectName(e, projectName){
   }
 }
 
-export { clearContent, createDefaultProject, displayProjectNames, addToStorage, withProjects, validateProjectName };
+function createList(project, title, description, completed, priority) {
+   let list = {
+     project: project,
+     title: title,
+     description: description,
+     completed: completed,
+     priority: priority,
+   }
+   return list
+}
+
+export { clearContent, createDefaultProject, displayProjectNames, addToStorage, withProjects, validateProjectName, createList };
