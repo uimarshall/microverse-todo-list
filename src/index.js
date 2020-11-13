@@ -6,7 +6,8 @@ import {
   createDefaultProject,
   displayProjectNames,
   changePage,
-} from './helpers/library';
+  projectNames,
+} from './helpers/viewHelpers';
 
 const body = document.querySelector('body');
 const content = document.getElementById('content');
@@ -22,7 +23,7 @@ content.appendChild(rightSide);
 
 const addNewList = contentCreator.withText('button', 'Add New List', 'addNewList');
 addNewList.onclick = () => {
-  changePage(body, content, addList());
+  changePage(body, content, addList(projectNames([])));
 };
 rightSide.appendChild(addNewList);
 

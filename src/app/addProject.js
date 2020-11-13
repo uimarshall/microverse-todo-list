@@ -1,6 +1,8 @@
 import capFirst from '../helpers/capFirst';
 import contentCreator from '../helpers/contentCreator';
-import { validateProjectName } from '../helpers/viewHelpers';
+import {
+  validateProjectName,
+} from '../helpers/listLogic';
 
 export default function addProject() {
   const form = document.createElement('form');

@@ -1,15 +1,15 @@
 import contentCreator from '../helpers/contentCreator';
 import {
-  addProjects,
   createList,
   checkInputs,
-} from '../helpers/library';
+} from '../helpers/listLogic';
 
-export default function addList() {
+
+export default function addList(projectNames) {
   const form = document.createElement('form');
 
   const projectWrapper = contentCreator.withText('div', '', 'form-group');
-  const projectSelect = contentCreator.selectMenu(addProjects([]));
+  const projectSelect = contentCreator.selectMenu(projectNames);
   projectSelect.classList.add('form-control');
   projectWrapper.appendChild(projectSelect);
   form.appendChild(projectWrapper);
@@ -41,9 +41,9 @@ export default function addList() {
   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Add ToDo', '', 'compconsted');
   submitBtn.classList.add('btn', 'btn-info', 'my-3');
   submitBtn.onclick = (e) => {
-    const listDetails = createList(projectSelect.value, titleInput.value,
-      descriptionInput.value, dateSelect.value, selectField.value, false);
-    checkInputs(e, listDetails);
+    checkInputs(e,
+      createList(projectSelect.value, titleInput.value,
+        descriptionInput.value, dateSelect.value, selectField.value, false));
   };
   form.appendChild(submitBtn);
 

@@ -1,11 +1,14 @@
 import contentCreator from '../helpers/contentCreator';
-import { updateList, updateInfo } from '../helpers/viewHelpers';
+import {
+  updateList,
+  updateInfo,
+} from '../helpers/listLogic';
 
-export default function editList(addProjects, list) {
+export default function editList(projectNames, list) {
   const form = document.createElement('form');
 
   const projectWrapper = contentCreator.withText('div', '', 'form-group');
-  const projectSelect = contentCreator.selectMenu(addProjects);
+  const projectSelect = contentCreator.selectMenu(projectNames);
   projectSelect.value = list.project;
   projectSelect.classList.add('form-control');
   projectWrapper.appendChild(projectSelect);
@@ -38,17 +41,11 @@ export default function editList(addProjects, list) {
 
   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Update ToDo', '', 'compconsted');
   submitBtn.classList.add('btn', 'btn-info', 'my-3');
-  submitBtn.onclick = () => {
-    updateList(
-      updateInfo(
-        projectSelect.value,
-        titleInput.value,
-        descriptionInput.value,
-        dateSelect.value,
-        selectField.value,
-      ),
-      list,
-    );
+  submitBtn.onclick = (e) => {
+    updateList(e,
+      updateInfo(projectSelect.value, titleInput.value,
+        descriptionInput.value, dateSelect.value, selectField.value),
+      list);
   };
   form.appendChild(submitBtn);
 
