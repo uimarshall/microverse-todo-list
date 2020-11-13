@@ -6,10 +6,40 @@ function clearContent(content) {
   }
 }
 
-function createDefaultProject() {
-  if (!localStorage['Default Project']) {
-    localStorage['Default Project'] = '';
+function clearDisplay(body) {
+  const displayList = document.querySelector('.todos');
+  if (displayList !== null) {
+    body.removeChild(displayList);
   }
+}
+
+function markChecked(list, project) {
+  const storageLocation = localStorage[project.value];
+  const projArr = storageLocation.split('|');
+  let ans = false;
+  for (let i = 0; i < projArr.length - 1; i += 1) {
+    const indList = JSON.parse(projArr[i]);
+    if (indList.title === list.title) {
+      if (indList.completed === true) {
+        ans = true;
+      }
+    }
+  }
+  return ans;
+}
+
+function checkBoxChange(list, project) {
+  list.completed = !list.completed;
+  const storageLocation = localStorage[project.value];
+  const projArr = storageLocation.split('|');
+  for (let i = 0; i < projArr.length - 1; i += 1) {
+    const indList = JSON.parse(projArr[i]);
+    if (indList.title === list.title) {
+      indList.completed = !indList.completed;
+      projArr[i] = JSON.stringify(indList);
+    }
+  }
+  localStorage.setItem(project.value, projArr.join('|'));
 }
 
 function displayList(currentList, project) {
@@ -20,34 +50,10 @@ function displayList(currentList, project) {
   thisList.appendChild(contentCreator.withText('li', `Priority:   ${list.priority}`));
   const checkLabel = contentCreator.withText('label', 'Completed');
   const checkbox = contentCreator.withoutLabel('input', 'checkbox', '', 'compconsted');
-  checkbox.checked = (() => {
-    const storageLocation = localStorage[project.value];
-    const projArr = storageLocation.split('|');
-    let ans = false;
-    for (let i = 0; i < projArr.length - 1; i += 1) {
-      const indList = JSON.parse(projArr[i]);
-      if (indList.title === list.title) {
-        if (indList.completed === true) {
-          ans = true;
-        }
-      }
-    }
-    return ans;
-  })();
+  checkbox.checked = markChecked(list, project);
   checkbox.onchange = () => {
-    list.completed = !list.completed;
-    const storageLocation = localStorage[project.value];
-    const projArr = storageLocation.split('|');
-    for (let i = 0; i < projArr.length - 1; i += 1) {
-      const indList = JSON.parse(projArr[i]);
-      if (indList.title === list.title) {
-        indList.completed = !indList.completed;
-        projArr[i] = JSON.stringify(indList);
-      }
-    }
-    localStorage.setItem(project.value, projArr.join('|'));
+    checkBoxChange(list, project);
   };
-
   checkLabel.appendChild(checkbox);
   thisList.appendChild(checkLabel);
 
@@ -100,6 +106,12 @@ function getToDoTitles(body, project, projArr, i) {
   }
 }
 
+function createDefaultProject() {
+  if (!localStorage['Default Project']) {
+    localStorage['Default Project'] = '';
+  }
+}
+
 function displayProjectNames(leftSide) {
   const body = document.querySelector('body');
   for (let i = 0; i < localStorage.length; i += 1) {
@@ -114,18 +126,10 @@ function displayProjectNames(leftSide) {
   }
 }
 
-function addToStorage(project, list) {
-  const prevLists = localStorage[project];
-  localStorage[project] = `${prevLists + JSON.stringify(list)}|`;
-}
-
-function addProjects(projects) {
-  for (let i = 0; i < localStorage.length; i += 1) {
-    if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-      projects.push(localStorage.key(i));
-    }
-  }
-  return projects;
+function changePage(body, content, page) {
+  clearDisplay(body);
+  clearContent(content);
+  content.appendChild(page);
 }
 
 function alertMessage(e, message) {
@@ -136,16 +140,6 @@ function alertMessage(e, message) {
     header.removeChild(alert);
   }
   header.appendChild(contentCreator.withText('p', `${message}`, 'validation-alert'));
-}
-
-function validateProjectName(e, projectName) {
-  if (localStorage[projectName] !== undefined) {
-    alertMessage(e, 'This Project Already Exists!');
-  } else if (projectName.trim() === '') {
-    alertMessage(e, 'Please name this Project!');
-  } else {
-    localStorage.setItem(`${projectName}`, '');
-  }
 }
 
 function validateListName(e, projectName, desiredTitle) {
@@ -162,6 +156,20 @@ function validateListName(e, projectName, desiredTitle) {
   return store;
 }
 
+function addToStorage(project, list) {
+  const prevLists = localStorage[project];
+  localStorage[project] = `${prevLists + JSON.stringify(list)}|`;
+}
+
+function addProjects(projects) {
+  for (let i = 0; i < localStorage.length; i += 1) {
+    if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+      projects.push(localStorage.key(i));
+    }
+  }
+  return projects;
+}
+
 function createList(project, title, description, date, priority, completed) {
   return {
     project,
@@ -171,13 +179,6 @@ function createList(project, title, description, date, priority, completed) {
     priority,
     completed,
   };
-}
-
-function clearDisplay(body) {
-  const displayList = document.querySelector('.todos');
-  if (displayList !== null) {
-    body.removeChild(displayList);
-  }
 }
 
 function checkInputs(e, listDetails) {
@@ -195,15 +196,22 @@ function checkInputs(e, listDetails) {
   }
 }
 
+function validateProjectName(e, projectName) {
+  if (localStorage[projectName] !== undefined) {
+    alertMessage(e, 'This Project Already Exists!');
+  } else if (projectName.trim() === '') {
+    alertMessage(e, 'Please name this Project!');
+  } else {
+    localStorage.setItem(`${projectName}`, '');
+  }
+}
+
 export {
-  clearContent,
   createDefaultProject,
   displayProjectNames,
-  addToStorage,
+  changePage,
   addProjects,
-  validateProjectName,
   createList,
-  clearDisplay,
-  validateListName,
   checkInputs,
+  validateProjectName,
 };
