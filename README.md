@@ -38,7 +38,7 @@ The application logic is modularize (i.e. creating new todos, setting todos as c
 `The project is hosted on gh-pages.`
 
 
-## ![screenshot](src/assets/BeckNCall.png)
+## ![screenshot](src/assets/Todo-list.png)
 
 
 
