@@ -95,9 +95,13 @@ form {
 }
 
 .todos {
-	text-align: center;
+	text-align: justify;
+	margin: 0 auto;
 	margin-top: -250px;
-	min-width: 20vw;
+	width: fit-content;
+	border: 1px solid #051a05;
+	padding: 0.4rem 1rem;
+	background-color: #135a13;
 }
 
 .todos li {
@@ -107,7 +111,6 @@ form {
 	border: 1px solid green;
 	background-color: #033503;
 	width: fit-content;
-	margin-left: 40rem;
 	padding: 0.4rem 1rem;
 	border-radius: 10%;
 	cursor: pointer;
