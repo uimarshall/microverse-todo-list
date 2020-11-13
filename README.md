@@ -41,11 +41,6 @@ The application logic is modularize (i.e. creating new todos, setting todos as c
 ## ![screenshot](src/assets/Todo-list.png)
 
 
-
-## Link to Live Demo:
-
-[Restaurant](https://uimarshall.github.io/microverse-restaurant-project/)
-
 ## Built With
 
 - JavaScript ES6
