@@ -21,7 +21,7 @@ content.appendChild(leftSide);
 const rightSide = contentCreator.withText('div', '', 'right-side');
 content.appendChild(rightSide);
 
-const addNewList = contentCreator.withText('button', 'Add New List', 'addNewList');
+const addNewList = contentCreator.withText('button', 'Add New Todo', 'addNewList');
 addNewList.onclick = () => {
   changePage(body, content, addList(projectNames([])));
 };

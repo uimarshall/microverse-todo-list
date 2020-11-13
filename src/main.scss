@@ -98,7 +98,7 @@ form {
   text-align: justify;
   margin: 0 auto;
   margin-top: -250px;
-  width: fit-content;
+  width: min-content;
   border: 1px solid #051a05;
   padding: 0.4rem 1rem;
   background-color: #135a13;
@@ -111,7 +111,16 @@ form {
 .todos ul li:last-child {
   border: 1px solid green;
   background-color: #033503;
-  width: fit-content;
+  width: min-content;
+  padding: 0.4rem 1rem;
+  border-radius: 10%;
+  cursor: pointer;
+}
+
+.todos ul li:nth-last-child(2) {
+  border: 1px solid green;
+  background-color: #033503;
+  width: min-content;
   padding: 0.4rem 1rem;
   border-radius: 10%;
   cursor: pointer;
