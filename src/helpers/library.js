@@ -12,19 +12,50 @@ function createDefaultProject() {
   }
 }
 
-function displayList(currentList) {
+function displayList(currentList, project) {
   const list = JSON.parse(currentList);
   const thisList = contentCreator.withValue('ul', `Title: ${list.title}`, `${list.title}`);
   thisList.appendChild(contentCreator.withText('li', `Description:    ${list.description}`));
   thisList.appendChild(contentCreator.withText('li', `Due Date:  ${list.date}`));
-  thisList.appendChild(contentCreator.withText('li', `Completed:  ${list.completed}`));
   thisList.appendChild(contentCreator.withText('li', `Priority:   ${list.priority}`));
+  const checkLabel = contentCreator.withText('label', 'Completed');
+  const checkbox = contentCreator.withoutLabel('input', 'checkbox', '', 'compconsted');
+  checkbox.checked = (() => {
+    const storageLocation = localStorage[project.value];
+    const projArr = storageLocation.split('|');
+    let ans = false;
+    for (let i = 0; i < projArr.length - 1; i += 1) {
+      const indList = JSON.parse(projArr[i]);
+      if (indList.title === list.title) {
+        if (indList.completed === true) {
+          ans = true;
+        }
+      }
+    }
+    return ans;
+  })();
+  checkbox.onchange = () => {
+    list.completed = !list.completed;
+    const storageLocation = localStorage[project.value];
+    const projArr = storageLocation.split('|');
+    for (let i = 0; i < projArr.length - 1; i += 1) {
+      const indList = JSON.parse(projArr[i]);
+      if (indList.title === list.title) {
+        indList.completed = !indList.completed;
+        projArr[i] = JSON.stringify(indList);
+      }
+    }
+    localStorage.setItem(project.value, projArr.join('|'));
+  };
+
+  checkLabel.appendChild(checkbox);
+  thisList.appendChild(checkLabel);
 
   return thisList;
 }
 
 function printList(list, displayContainer, forThisProject, i, project, body, projArr) {
-  const thisList = displayList(forThisProject);
+  const thisList = displayList(forThisProject, project);
   const deleteBtn = contentCreator.withText('li', 'Delete');
   deleteBtn.onclick = () => {
     projArr.splice(projArr.indexOf(forThisProject), 1);
@@ -74,6 +105,7 @@ function displayProjectNames(leftSide) {
   for (let i = 0; i < localStorage.length; i += 1) {
     if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
       const project = contentCreator.withText('ul', localStorage.key(i), 'projectListItem');
+      project.value = localStorage.key(i);
       const projectsStored = localStorage[localStorage.key(i)];
       getToDoTitles(body, project, projectsStored.split('|'), i);
 
@@ -114,14 +146,30 @@ function validateProjectName(e, projectName) {
   }
 }
 
-function createList(project, title, description, completed, date, priority) {
+function validateListName(e, projectName) {
+  const storageLocation = localStorage[project.value];
+  const projArr = storageLocation.split('|');
+  for (let i = 0; i < projArr.length - 1; i += 1) {
+    const indList = JSON.parse(projArr[i]);
+    if (indList.title === list.title) {
+      projArr[i] = JSON.stringify(indList);
+    }
+  }
+  if (localStorage[projectName] !== undefined) {
+    alertMessage(e);
+  } else {
+    localStorage.setItem(`${projectName}`, '');
+  }
+}
+
+function createList(project, title, description, date, priority, completed) {
   return {
     project,
     title,
     description,
-    completed,
     date,
     priority,
+    completed,
   };
 }
 
@@ -141,4 +189,5 @@ export {
   validateProjectName,
   createList,
   clearDisplay,
+  validateListName,
 };

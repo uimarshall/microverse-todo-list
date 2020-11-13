@@ -27,7 +27,8 @@ export default function addList() {
   form.append(inputWrapper3);
 
   // const textBoxWrapper = contentCreator.withText('div', '', 'form-check');
-  // const textBoxField = contentCreator.withLabel('input', 'checkbox', '', 'compconsted', 'completed');
+  // const textBoxField = contentCreator.withLabel('input',
+  // 'checkbox', '', 'compconsted', 'completed');
   // textBoxWrapper.appendChild(textBoxField);
   // form.appendChild(textBoxWrapper);
 
@@ -43,12 +44,10 @@ export default function addList() {
 
   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Add ToDo', '', 'compconsted');
   submitBtn.classList.add('btn', 'btn-info', 'my-3');
-  submitBtn.onclick = (e) => {
-    // e.preventDefault();
-    // alert(textBoxField.value);
+  submitBtn.onclick = () => {
     addToStorage(projectSelect.value,
       createList(projectSelect.value, inputField2.value,
-        textarea.value, textBoxField.checked, dateSelect.value, selectField.value));
+        textarea.value, dateSelect.value, selectField.value, false));
   };
   form.appendChild(submitBtn);
 
