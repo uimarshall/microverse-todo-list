@@ -1,4 +1,3 @@
-import addList from '../app/addList';
 import contentCreator from './contentCreator';
 import editList from '../app/editList';
 
@@ -58,10 +57,10 @@ function checkBoxChange(list, project) {
 
 function displayList(currentList, project) {
   const list = JSON.parse(currentList);
-  const thisList = contentCreator.withValue('ul', `Title: ${list.title}`, `${list.title}`);
-  thisList.appendChild(contentCreator.withText('li', `Description:    ${list.description}`));
-  thisList.appendChild(contentCreator.withText('li', `Due Date:  ${list.date}`));
-  thisList.appendChild(contentCreator.withText('li', `Priority:   ${list.priority}`));
+  const thisList = contentCreator.withValue('ul', `Title: ${list.title}`, `${list.title}`, 'listDisplay');
+  thisList.appendChild(contentCreator.withText('li', `Description:    ${list.description}`, 'listDisplay'));
+  thisList.appendChild(contentCreator.withText('li', `Due Date:  ${list.date}`, 'listDisplay'));
+  thisList.appendChild(contentCreator.withText('li', `Priority:   ${list.priority}`, 'listDisplay'));
   const checkLabel = contentCreator.withText('label', 'Completed');
   const checkbox = contentCreator.withoutLabel('input', 'checkbox', '', 'compconsted');
   checkbox.checked = markChecked(list, project);
@@ -85,7 +84,7 @@ function projectNames(projects) {
 
 function printList(list, displayContainer, forThisProject, i, project, body, projArr) {
   const thisList = displayList(forThisProject, project);
-  const deleteBtn = contentCreator.withText('li', 'Delete');
+  const deleteBtn = contentCreator.withText('li', 'Delete', 'listDisplay');
   deleteBtn.onclick = () => {
     projArr.splice(projArr.indexOf(forThisProject), 1);
     localStorage[localStorage.key(i)] = projArr.join('|');
@@ -93,7 +92,7 @@ function printList(list, displayContainer, forThisProject, i, project, body, pro
     clearContent(thisList);
     body.removeChild(displayContainer);
   };
-  const editBtn = contentCreator.withText('li', 'Edit');
+  const editBtn = contentCreator.withText('li', 'Edit', 'listDisplay');
   editBtn.onclick = () => {
     const content = document.getElementById('content');
     changePage(body, content, editList(projectNames([]), JSON.parse(forThisProject)));
@@ -127,8 +126,19 @@ function getToDoTitles(body, project, projArr, i) {
   if (projArr !== '') {
     for (let j = 0; j < projArr.length - 1; j += 1) {
       const list = contentCreator.withText('li', JSON.parse(projArr[j]).title);
+      list.style.color = (() => {
+        const { priority } = JSON.parse(projArr[j]);
+        let color = 'black';
+        if (priority === 'low') {
+          color = 'green';
+        } else if (priority === 'medium') {
+          color = 'yellow';
+        } else {
+          color = 'red';
+        }
+        return color;
+      })();
       list.onclick = () => {
-       
         displayTodos(body, projArr[j], list, project, projArr, i);
       };
       project.appendChild(list);
@@ -143,10 +153,6 @@ function displayProjectNames(leftSide) {
       const project = contentCreator.withText('ul', localStorage.key(i), 'projectListItem');
       project.value = localStorage.key(i);
       const projectsStored = localStorage[localStorage.key(i)];
-       alert(projectsStored)
-       if (projectsStored) {
-         
-       }
       getToDoTitles(body, project, projectsStored.split('|'), i);
 
       leftSide.appendChild(project);
