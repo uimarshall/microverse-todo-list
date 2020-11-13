@@ -45,6 +45,11 @@ export default function addList() {
   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Add ToDo', '', 'compconsted');
   submitBtn.classList.add('btn', 'btn-info', 'my-3');
   submitBtn.onclick = () => {
+    if (selectField.value='low') {
+     alert(inputField2.style.color = 'red')
+      
+    }
+   
     addToStorage(projectSelect.value,
       createList(projectSelect.value, inputField2.value,
         textarea.value, dateSelect.value, selectField.value, false));

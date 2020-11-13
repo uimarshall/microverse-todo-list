@@ -1,3 +1,4 @@
+import addList from '../app/addList';
 import contentCreator from './contentCreator';
 
 function clearContent(content) {
@@ -93,6 +94,7 @@ function getToDoTitles(body, project, projArr, i) {
     for (let j = 0; j < projArr.length - 1; j += 1) {
       const list = contentCreator.withText('li', JSON.parse(projArr[j]).title);
       list.onclick = () => {
+       
         displayTodos(body, projArr[j], list, project, projArr, i);
       };
       project.appendChild(list);
@@ -107,6 +109,10 @@ function displayProjectNames(leftSide) {
       const project = contentCreator.withText('ul', localStorage.key(i), 'projectListItem');
       project.value = localStorage.key(i);
       const projectsStored = localStorage[localStorage.key(i)];
+       alert(projectsStored)
+       if (projectsStored) {
+         
+       }
       getToDoTitles(body, project, projectsStored.split('|'), i);
 
       leftSide.appendChild(project);
