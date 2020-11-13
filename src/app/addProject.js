@@ -2,21 +2,22 @@ import capFirst from '../helpers/capFirst';
 import contentCreator from '../helpers/contentCreator';
 import {
   validateProjectName,
-} from '../helpers/library';
+} from '../helpers/listLogic';
 
 export default function addProject() {
   const form = document.createElement('form');
 
-  const inputWrapper = contentCreator.withText('div', '', 'form-group');
-  const inputField = contentCreator.withoutLabel('input', 'text', 'Project Title', 'todo-input');
-  inputField.classList.add('form-control');
-  inputWrapper.appendChild(inputField);
-  form.appendChild(inputWrapper);
+  const projectWrapper = contentCreator.withText('div', '', 'form-group');
+  const projectName = contentCreator.withoutLabel('input', 'text', 'Project Title', 'todo-input');
+  projectName.classList.add('form-control');
+  projectName.required = 'true';
+  projectWrapper.appendChild(projectName);
+  form.appendChild(projectWrapper);
 
   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Add Project', '', 'compconsted');
   submitBtn.classList.add('btn', 'btn-info', 'my-3');
   submitBtn.onclick = (e) => {
-    validateProjectName(e, capFirst(inputField.value));
+    validateProjectName(e, capFirst(projectName.value));
   };
   form.appendChild(submitBtn);
 
