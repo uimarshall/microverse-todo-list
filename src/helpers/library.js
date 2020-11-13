@@ -1,4 +1,11 @@
 import contentCreator from './contentCreator';
+import editList from '../app/editList';
+
+function createDefaultProject() {
+  if (!localStorage['Default Project']) {
+    localStorage['Default Project'] = '';
+  }
+}
 
 function clearContent(content) {
   while (content.firstChild) {
@@ -11,6 +18,26 @@ function clearDisplay(body) {
   if (displayList !== null) {
     body.removeChild(displayList);
   }
+}
+
+function changePage(body, content, page) {
+  clearDisplay(body);
+  clearContent(content);
+  content.appendChild(page);
+}
+
+function addToStorage(project, list) {
+  const prevLists = localStorage[project];
+  localStorage[project] = `${prevLists + JSON.stringify(list)}|`;
+}
+
+function addProjects(projects) {
+  for (let i = 0; i < localStorage.length; i += 1) {
+    if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+      projects.push(localStorage.key(i));
+    }
+  }
+  return projects;
 }
 
 function markChecked(list, project) {
@@ -70,6 +97,12 @@ function printList(list, displayContainer, forThisProject, i, project, body, pro
     clearContent(thisList);
     body.removeChild(displayContainer);
   };
+  const editBtn = contentCreator.withText('li', 'Edit');
+  editBtn.onclick = () => {
+    const content = document.getElementById('content');
+    changePage(body, content, editList(addProjects([]), JSON.parse(forThisProject)));
+  };
+  thisList.appendChild(editBtn);
   thisList.appendChild(deleteBtn);
   displayContainer.appendChild(thisList);
 }
@@ -106,12 +139,6 @@ function getToDoTitles(body, project, projArr, i) {
   }
 }
 
-function createDefaultProject() {
-  if (!localStorage['Default Project']) {
-    localStorage['Default Project'] = '';
-  }
-}
-
 function displayProjectNames(leftSide) {
   const body = document.querySelector('body');
   for (let i = 0; i < localStorage.length; i += 1) {
@@ -124,12 +151,6 @@ function displayProjectNames(leftSide) {
       leftSide.appendChild(project);
     }
   }
-}
-
-function changePage(body, content, page) {
-  clearDisplay(body);
-  clearContent(content);
-  content.appendChild(page);
 }
 
 function alertMessage(e, message) {
@@ -154,31 +175,6 @@ function validateListName(e, projectName, desiredTitle) {
     }
   }
   return store;
-}
-
-function addToStorage(project, list) {
-  const prevLists = localStorage[project];
-  localStorage[project] = `${prevLists + JSON.stringify(list)}|`;
-}
-
-function addProjects(projects) {
-  for (let i = 0; i < localStorage.length; i += 1) {
-    if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
-      projects.push(localStorage.key(i));
-    }
-  }
-  return projects;
-}
-
-function createList(project, title, description, date, priority, completed) {
-  return {
-    project,
-    title,
-    description,
-    date,
-    priority,
-    completed,
-  };
 }
 
 function checkInputs(e, listDetails) {
@@ -211,7 +207,6 @@ export {
   displayProjectNames,
   changePage,
   addProjects,
-  createList,
   checkInputs,
   validateProjectName,
 };

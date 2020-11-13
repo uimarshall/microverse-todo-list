@@ -10,10 +10,19 @@ const contentCreator = {
     return element;
   },
 
-  withValue(type, content, value, className) {
+  withValueID(type, content, value, className) {
     const element = document.createElement(type);
     element.textContent = content;
     element.id = value;
+    element.classList.add(className);
+
+    return element;
+  },
+
+  withValue(type, content, value, className) {
+    const element = document.createElement(type);
+    element.textContent = content;
+    element.value = value;
     element.classList.add(className);
 
     return element;
