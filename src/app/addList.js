@@ -1,39 +1,35 @@
 import contentCreator from '../helpers/contentCreator';
 import {
-  addToStorage,
-  withProjects,
+  addProjects,
   createList,
+  checkInputs,
 } from '../helpers/library';
 
 export default function addList() {
   const form = document.createElement('form');
 
-  const inputWrapper = contentCreator.withText('div', '', 'form-group');
-  const projectSelect = contentCreator.selectMenu(withProjects([]));
+  const projectWrapper = contentCreator.withText('div', '', 'form-group');
+  const projectSelect = contentCreator.selectMenu(addProjects([]));
   projectSelect.classList.add('form-control');
-  inputWrapper.appendChild(projectSelect);
-  form.appendChild(inputWrapper);
+  projectWrapper.appendChild(projectSelect);
+  form.appendChild(projectWrapper);
 
-  const inputWrapper2 = contentCreator.withText('div', '', 'form-group');
-  const inputField2 = contentCreator.withoutLabel('input', 'text', 'title', 'form-control');
-  inputWrapper2.appendChild(inputField2);
-  form.appendChild(inputWrapper2);
+  const titleWrapper = contentCreator.withText('div', '', 'form-group');
+  const titleInput = contentCreator.withoutLabel('input', 'text', 'title', 'form-control');
+  titleInput.required = 'true';
+  titleWrapper.appendChild(titleInput);
+  form.appendChild(titleWrapper);
 
-  const inputWrapper3 = contentCreator.withText('div', '', 'form-group');
-
-  const textarea = contentCreator.withText('textarea', '', 'form-control');
-  textarea.setAttribute('placeholder', 'Enter Description');
-  inputWrapper3.appendChild(textarea);
-  form.append(inputWrapper3);
-
-  // const textBoxWrapper = contentCreator.withText('div', '', 'form-check');
-  // const textBoxField = contentCreator.withLabel('input',
-  // 'checkbox', '', 'compconsted', 'completed');
-  // textBoxWrapper.appendChild(textBoxField);
-  // form.appendChild(textBoxWrapper);
+  const descriptionWrapper = contentCreator.withText('div', '', 'form-group');
+  const descriptionInput = contentCreator.withText('textarea', '', 'form-control');
+  descriptionInput.setAttribute('placeholder', 'Enter Description');
+  descriptionInput.required = 'true';
+  descriptionWrapper.appendChild(descriptionInput);
+  form.append(descriptionWrapper);
 
   const dateWrapper = contentCreator.withText('div', '', 'form-check');
   const dateSelect = contentCreator.withoutLabel('input', 'date', '', 'form-control');
+  dateSelect.required = 'true';
   dateWrapper.appendChild(dateSelect);
   form.appendChild(dateWrapper);
 
@@ -44,10 +40,10 @@ export default function addList() {
 
   const submitBtn = contentCreator.withoutLabelPlusValue('input', 'submit', 'Add ToDo', '', 'compconsted');
   submitBtn.classList.add('btn', 'btn-info', 'my-3');
-  submitBtn.onclick = () => {
-    addToStorage(projectSelect.value,
-      createList(projectSelect.value, inputField2.value,
-        textarea.value, dateSelect.value, selectField.value, false));
+  submitBtn.onclick = (e) => {
+    const listDetails = createList(projectSelect.value, titleInput.value,
+      descriptionInput.value, dateSelect.value, selectField.value, false);
+    checkInputs(e, listDetails);
   };
   form.appendChild(submitBtn);
 

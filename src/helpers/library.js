@@ -119,7 +119,7 @@ function addToStorage(project, list) {
   localStorage[project] = `${prevLists + JSON.stringify(list)}|`;
 }
 
-function withProjects(projects) {
+function addProjects(projects) {
   for (let i = 0; i < localStorage.length; i += 1) {
     if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
       projects.push(localStorage.key(i));
@@ -128,38 +128,38 @@ function withProjects(projects) {
   return projects;
 }
 
-function alertMessage(e) {
+function alertMessage(e, message) {
   e.preventDefault();
   const header = document.querySelector('header');
   const alert = document.querySelector('.validation-alert');
   if (alert) {
     header.removeChild(alert);
   }
-  header.appendChild(contentCreator.withText('p', 'This Project Already Exists!', 'validation-alert'));
+  header.appendChild(contentCreator.withText('p', `${message}`, 'validation-alert'));
 }
 
 function validateProjectName(e, projectName) {
   if (localStorage[projectName] !== undefined) {
-    alertMessage(e);
+    alertMessage(e, 'This Project Already Exists!');
+  } else if (projectName.trim() === '') {
+    alertMessage(e, 'Please name this Project!');
   } else {
     localStorage.setItem(`${projectName}`, '');
   }
 }
 
-function validateListName(e, projectName) {
-  const storageLocation = localStorage[project.value];
+function validateListName(e, projectName, desiredTitle) {
+  const storageLocation = localStorage[projectName];
   const projArr = storageLocation.split('|');
+  let store = true;
   for (let i = 0; i < projArr.length - 1; i += 1) {
     const indList = JSON.parse(projArr[i]);
-    if (indList.title === list.title) {
-      projArr[i] = JSON.stringify(indList);
+    if (indList.title === desiredTitle) {
+      alertMessage(e, 'This List Already Exists!');
+      store = false;
     }
   }
-  if (localStorage[projectName] !== undefined) {
-    alertMessage(e);
-  } else {
-    localStorage.setItem(`${projectName}`, '');
-  }
+  return store;
 }
 
 function createList(project, title, description, date, priority, completed) {
@@ -180,14 +180,30 @@ function clearDisplay(body) {
   }
 }
 
+function checkInputs(e, listDetails) {
+  let valid = true;
+  Object.entries(listDetails).forEach(item => {
+    if (item[1] === '') {
+      valid = false;
+      alertMessage(e, 'Please fill in all fields!');
+    }
+  });
+  if (valid) {
+    if (validateListName(e, listDetails.project, listDetails.title)) {
+      addToStorage(listDetails.project, listDetails);
+    }
+  }
+}
+
 export {
   clearContent,
   createDefaultProject,
   displayProjectNames,
   addToStorage,
-  withProjects,
+  addProjects,
   validateProjectName,
   createList,
   clearDisplay,
   validateListName,
+  checkInputs,
 };
