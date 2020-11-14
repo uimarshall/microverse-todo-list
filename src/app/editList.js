@@ -4,7 +4,7 @@ import {
   updateInfo,
 } from '../helpers/listLogic';
 
-export default function editList(projectNames, list) {
+const editList = (projectNames, list) => {
   const form = document.createElement('form');
 
   const projectWrapper = contentCreator.withText('div', '', 'form-group');
@@ -52,4 +52,6 @@ export default function editList(projectNames, list) {
   form.classList.add('default');
 
   return form;
-}
+};
+
+export default editList;

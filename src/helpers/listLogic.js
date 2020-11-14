@@ -1,6 +1,6 @@
 import contentCreator from './contentCreator';
 
-function alertMessage(e, message) {
+const alertMessage = (e, message) => {
   e.preventDefault();
   const header = document.querySelector('header');
   const alert = document.querySelector('.validation-alert');
@@ -8,9 +8,9 @@ function alertMessage(e, message) {
     header.removeChild(alert);
   }
   header.appendChild(contentCreator.withText('p', `${message}`, 'validation-alert'));
-}
+};
 
-function updateList(e, update, list) {
+const updateList = (e, update, list) => {
   const thisProject = localStorage[list.project];
   const projArr = thisProject.split('|');
   for (let i = 0; i < projArr.length - 1; i += 1) {
@@ -38,30 +38,26 @@ function updateList(e, update, list) {
     projArr.splice(0, 0, JSON.stringify(list));
     localStorage[list.project] = projArr.join('|');
   }
-}
+};
 
-function updateInfo(project, title, description, date, priority) {
-  return {
-    project,
-    title,
-    description,
-    date,
-    priority,
-  };
-}
+const updateInfo = (project, title, description, date, priority) => ({
+  project,
+  title,
+  description,
+  date,
+  priority,
+});
 
-function createList(project, title, description, date, priority, completed) {
-  return {
-    project,
-    title,
-    description,
-    date,
-    priority,
-    completed,
-  };
-}
+const createList = (project, title, description, date, priority, completed) => ({
+  project,
+  title,
+  description,
+  date,
+  priority,
+  completed,
+});
 
-function validateListName(e, projectName, desiredTitle) {
+const validateListName = (e, projectName, desiredTitle) => {
   const storageLocation = localStorage[projectName];
   const projArr = storageLocation.split('|');
   let store = true;
@@ -73,14 +69,14 @@ function validateListName(e, projectName, desiredTitle) {
     }
   }
   return store;
-}
+};
 
-function addToStorage(project, list) {
+const addToStorage = (project, list) => {
   const prevLists = localStorage[project];
   localStorage[project] = `${prevLists + JSON.stringify(list)}|`;
-}
+};
 
-function validateProjectName(e, projectName) {
+const validateProjectName = (e, projectName) => {
   if (localStorage[projectName] !== undefined) {
     alertMessage(e, 'This Project Already Exists!');
   } else if (projectName.trim() === '') {
@@ -88,9 +84,9 @@ function validateProjectName(e, projectName) {
   } else {
     localStorage.setItem(`${projectName}`, '');
   }
-}
+};
 
-function checkInputs(e, listDetails) {
+const checkInputs = (e, listDetails) => {
   let valid = true;
   Object.entries(listDetails).forEach(item => {
     if (item[1] === '') {
@@ -103,7 +99,7 @@ function checkInputs(e, listDetails) {
       addToStorage(listDetails.project, listDetails);
     }
   }
-}
+};
 
 export {
   updateInfo,

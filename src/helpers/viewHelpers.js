@@ -1,32 +1,32 @@
 import contentCreator from './contentCreator';
 import editList from '../app/editList';
 
-function createDefaultProject() {
+const createDefaultProject = () => {
   if (!localStorage['Default Project']) {
     localStorage['Default Project'] = '';
   }
-}
+};
 
-function clearContent(content) {
+const clearContent = (content) => {
   while (content.firstChild) {
     content.removeChild(content.firstChild);
   }
-}
+};
 
-function clearDisplay(body) {
+const clearDisplay = (body) => {
   const displayList = document.querySelector('.todos');
   if (displayList !== null) {
     body.removeChild(displayList);
   }
-}
+};
 
-function changePage(body, content, page) {
+const changePage = (body, content, page) => {
   clearDisplay(body);
   clearContent(content);
   content.appendChild(page);
-}
+};
 
-function markChecked(list, project) {
+const markChecked = (list, project) => {
   const storageLocation = localStorage[project.value];
   const projArr = storageLocation.split('|');
   let ans = false;
@@ -39,9 +39,9 @@ function markChecked(list, project) {
     }
   }
   return ans;
-}
+};
 
-function checkBoxChange(list, project) {
+const checkBoxChange = (list, project) => {
   list.completed = !list.completed;
   const storageLocation = localStorage[project.value];
   const projArr = storageLocation.split('|');
@@ -53,9 +53,9 @@ function checkBoxChange(list, project) {
     }
   }
   localStorage.setItem(project.value, projArr.join('|'));
-}
+};
 
-function displayList(currentList, project) {
+const displayList = (currentList, project) => {
   const list = JSON.parse(currentList);
   const thisList = contentCreator.withValue('ul', `Title: ${list.title}`, `${list.title}`, 'listDisplay');
   thisList.appendChild(contentCreator.withText('li', `Description:    ${list.description}`, 'listDisplay'));
@@ -71,18 +71,18 @@ function displayList(currentList, project) {
   thisList.appendChild(checkLabel);
 
   return thisList;
-}
+};
 
-function projectNames(projects) {
+const projectNames = (projects) => {
   for (let i = 0; i < localStorage.length; i += 1) {
     if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
       projects.push(localStorage.key(i));
     }
   }
   return projects;
-}
+};
 
-function printList(list, displayContainer, forThisProject, i, project, body, projArr) {
+const printList = (list, displayContainer, forThisProject, i, project, body, projArr) => {
   const thisList = displayList(forThisProject, project);
   const deleteBtn = contentCreator.withText('li', 'Delete', 'listDisplay');
   deleteBtn.onclick = () => {
@@ -100,9 +100,9 @@ function printList(list, displayContainer, forThisProject, i, project, body, pro
   thisList.appendChild(editBtn);
   thisList.appendChild(deleteBtn);
   displayContainer.appendChild(thisList);
-}
+};
 
-function displayTodos(body, forThisProject, list, project, projArr, i) {
+const displayTodos = (body, forThisProject, list, project, projArr, i) => {
   const displayContainer = document.querySelector('.todos');
   if (displayContainer != null) {
     clearContent(displayContainer);
@@ -120,9 +120,9 @@ function displayTodos(body, forThisProject, list, project, projArr, i) {
     body.appendChild(displayContainer);
     list.classList.toggle('active');
   }
-}
+};
 
-function getToDoTitles(body, project, projArr, i) {
+const getToDoTitles = (body, project, projArr, i) => {
   if (projArr !== '') {
     for (let j = 0; j < projArr.length - 1; j += 1) {
       const list = contentCreator.withText('li', JSON.parse(projArr[j]).title);
@@ -144,9 +144,9 @@ function getToDoTitles(body, project, projArr, i) {
       project.appendChild(list);
     }
   }
-}
+};
 
-function displayProjectNames(leftSide) {
+const displayProjectNames = (leftSide) => {
   const body = document.querySelector('body');
   for (let i = 0; i < localStorage.length; i += 1) {
     if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
@@ -158,7 +158,7 @@ function displayProjectNames(leftSide) {
       leftSide.appendChild(project);
     }
   }
-}
+};
 
 export {
   createDefaultProject,

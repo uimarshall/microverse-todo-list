@@ -4,7 +4,7 @@ import {
   validateProjectName,
 } from '../helpers/listLogic';
 
-export default function addProject() {
+const addProject = () => {
   const form = document.createElement('form');
 
   const projectWrapper = contentCreator.withText('div', '', 'form-group');
@@ -24,4 +24,7 @@ export default function addProject() {
   form.classList.add('default');
 
   return form;
-}
+};
+
+
+export default addProject;

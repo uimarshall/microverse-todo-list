@@ -5,7 +5,7 @@ import {
 } from '../helpers/listLogic';
 
 
-export default function addList(projectNames) {
+const addList = (projectNames) => {
   const form = document.createElement('form');
 
   const projectWrapper = contentCreator.withText('div', '', 'form-group');
@@ -50,4 +50,6 @@ export default function addList(projectNames) {
   form.classList.add('default');
 
   return form;
-}
+};
+
+export default addList;
