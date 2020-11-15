@@ -1,5 +1,132 @@
 @import "~bootstrap/scss/bootstrap";
 
+html {
+  margin-top: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
 body {
-  background: #606061;
+  background-image: linear-gradient(120deg, #0fce8e, #79c424);
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+  background-color: #2b381d;
+  margin-bottom: 2rem;
+  min-height: 20vh;
+  font-family: "Orbitron", sans-serif;
+}
+
+form,
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form {
+  min-height: 40vh;
+  min-width: 30%;
+}
+
+#content form {
+  display: block;
+  margin: 0 auto;
+}
+
+.default {
+  margin-left: 50px;
+}
+
+.projectListItem {
+  max-width: min-content;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+#content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-side {
+  min-height: 60vh;
+  padding: 3rem 4rem;
+  margin-left: 0;
+  background-color: #223a07;
+}
+
+.right-side {
+  margin-right: 3rem;
+}
+
+.addNewList {
+  background: #152008;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.addNewProject {
+  background: #325a04;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-control {
+  height: 50px;
+  padding: 5px;
+  margin: 5px;
+}
+
+#completed {
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.todos {
+  text-align: justify;
+  margin: 0 auto;
+  margin-top: -250px;
+  width: min-content;
+  border: 1px solid #051a05;
+  padding: 0.4rem 1rem;
+  background-color: #135a13;
+}
+
+.todos li {
+  list-style-type: none;
+}
+
+.todos ul li:last-child {
+  border: 1px solid green;
+  background-color: #033503;
+  width: min-content;
+  padding: 0.4rem 1rem;
+  border-radius: 10%;
+  cursor: pointer;
+}
+
+.todos ul li:nth-last-child(2) {
+  border: 1px solid green;
+  background-color: #033503;
+  width: min-content;
+  padding: 0.4rem 1rem;
+  border-radius: 10%;
+  cursor: pointer;
+}
+
+.listDisplay {
+  width: min-content;
+  white-space: nowrap;
 }
