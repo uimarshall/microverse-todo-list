@@ -1,4 +1,5 @@
 import contentCreator from '../src/helpers/contentCreator';
+
 describe('withText function', () => {
   const element = contentCreator.withText('p', 'Hello World!', 'element_class');
 
