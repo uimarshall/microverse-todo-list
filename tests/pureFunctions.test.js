@@ -1,5 +1,6 @@
 import capFirst from '../src/helpers/capFirst';
 import contentCreator from '../src/helpers/contentCreator';
+import { createList, updateInfo } from '../src/helpers/listLogic';
 
 test('capitalize a string', () => {
   expect(capFirst('hello')).toEqual('Hello');
@@ -123,4 +124,59 @@ test('contentCreator creates dynamic html element with a placeholder', () => {
 test('contentCreator creates dynamic html element with a class', () => {
   const element = contentCreator.withoutLabelPlusValue('input', 'text', 'Hello!', 'Enter a Name..', 'input_class');
   expect(element.classList.contains('input_class')).toEqual(true);
+});
+
+test('create list returns an object with assigned variables', () => {
+  const newList = createList('Project1', 'Title1', 'Description1', 'Date1', 'Priority1', true);
+  expect(newList.project).toEqual('Project1');
+});
+
+test('create list returns an object with assigned variables', () => {
+  const newList = createList('Project1', 'Title1', 'Description1', 'Date1', 'Priority1', true);
+  expect(newList.title).toEqual('Title1');
+});
+
+test('create list returns an object with assigned variables', () => {
+  const newList = createList('Project1', 'Title1', 'Description1', 'Date1', 'Priority1', true);
+  expect(newList.description).toEqual('Description1');
+});
+
+test('create list returns an object with assigned variables', () => {
+  const newList = createList('Project1', 'Title1', 'Description1', 'Date1', 'Priority1', true);
+  expect(newList.date).toEqual('Date1');
+});
+
+test('create list returns an object with assigned variables', () => {
+  const newList = createList('Project1', 'Title1', 'Description1', 'Date1', 'Priority1', true);
+  expect(newList.priority).toEqual('Priority1');
+});
+
+test('create list returns an object with assigned variables', () => {
+  const newList = createList('Project1', 'Title1', 'Description1', 'Date1', 'Priority1', true);
+  expect(newList.completed).toEqual(true);
+});
+
+test('update list returns an object with assigned variables', () => {
+  const newList = updateInfo('Project2', 'Title2', 'Description2', 'Date2', 'Priority2');
+  expect(newList.project).toEqual('Project2');
+});
+
+test('update list returns an object with assigned variables', () => {
+  const newList = updateInfo('Project2', 'Title2', 'Description2', 'Date2', 'Priority2');
+  expect(newList.title).toEqual('Title2');
+});
+
+test('update list returns an object with assigned variables', () => {
+  const newList = updateInfo('Project2', 'Title2', 'Description2', 'Date2', 'Priority2');
+  expect(newList.description).toEqual('Description2');
+});
+
+test('update list returns an object with assigned variables', () => {
+  const newList = updateInfo('Project2', 'Title2', 'Description2', 'Date2', 'Priority2');
+  expect(newList.date).toEqual('Date2');
+});
+
+test('update list returns an object with assigned variables', () => {
+  const newList = updateInfo('Project2', 'Title2', 'Description2', 'Date2', 'Priority2');
+  expect(newList.priority).toEqual('Priority2');
 });
