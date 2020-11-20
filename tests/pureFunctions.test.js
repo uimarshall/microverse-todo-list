@@ -2,6 +2,7 @@ import capFirst from '../src/helpers/capFirst';
 import contentCreator from '../src/helpers/contentCreator';
 import { createList, updateInfo } from '../src/helpers/listLogic';
 
+
 test('capitalize a string', () => {
   expect(capFirst('hello')).toEqual('Hello');
 });
@@ -180,3 +181,11 @@ test('update list returns an object with assigned variables', () => {
   const newList = updateInfo('Project2', 'Title2', 'Description2', 'Date2', 'Priority2');
   expect(newList.priority).toEqual('Priority2');
 });
+test('updateInfo function should be defined', () => {
+  expect(updateInfo()).toBeDefined();
+});
+test('creatList function should be defined', () => {
+  expect(createList()).toBeDefined();
+});
+
+

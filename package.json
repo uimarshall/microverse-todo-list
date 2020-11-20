@@ -15,7 +15,7 @@
 		"fix": "npx stylelint --fix \"**/*.{css,scss}\"",
 		"lintfix": "npx eslint --fix .",
 		"test": "jest",
-		"test-watch": "jest --watch"
+		"testwatch": "jest --watchAll"
 	},
 	"repository": {
 		"type": "git",
@@ -29,7 +29,10 @@
 	},
 	"homepage2": "https://github.com/uimarshall/webpack-config#readme",
 	"devDependencies": {
+		"@babel/core": "^7.12.3",
+		"@babel/preset-env": "^7.12.1",
 		"babel-eslint": "^10.1.0",
+		"babel-jest": "^26.6.3",
 		"css-loader": "^5.0.0",
 		"eslint": "^6.8.0",
 		"eslint-config-airbnb-base": "^14.1.0",
